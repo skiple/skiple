@@ -1,0 +1,21 @@
+@import "./partials/_font";
+
+// HEADER
+
+.navs{
+	margin-top: 50px;
+}
+
+.nav-right{
+	display: block;
+	vertical-align: middle;
+	margin-top: 25px;
+	li{
+		display: inline-block;
+		font-family: $reguler;
+		letter-spacing: 1px;
+		padding-left: 25px;
+		padding-right: 25px;
+	}
+}
+
