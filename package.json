@@ -6,7 +6,7 @@
 	"repository": "https://github.com/abathz/react-boilerplate.git",
 	"scripts": {
 		"start": "node server",
-		"build": "webpack --config webpack.config.prod.js"
+		"build": "webpack -p --config webpack.config.prod.js"
 	},
 	"author": "Adli Fariz Bonaputra <abathz@gmail.com>",
 	"license": "ISC",
@@ -33,6 +33,7 @@
 		"axios": "^0.16.2",
 		"bootstrap": "4.0.0-alpha.6",
 		"jquery": "^3.2.1",
+		"localstorage-async": "^0.1.2",
 		"lodash": "^3.10.1",
 		"react": "^15.5.4",
 		"react-dom": "^15.4.2",

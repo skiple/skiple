@@ -35,8 +35,8 @@ module.exports = {
 				loader: ExtractTextPlugin.extract('css-loader!sass-loader')
 			},
 			{
-				test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-				loader: 'file-loader'
+				test: /\.(ttf|otf)$/,
+				loader: 'file-loader?name=public/fonts/[name].[ext]'
 			}
 		]
 	},
@@ -51,8 +51,7 @@ module.exports = {
 	},
 	devServer: {
 		disableHostCheck: true,
-		historyApiFallback: true,
-		contentBase: './'
+		historyApiFallback: true
 	},
 	plugins: [
 		new ExtractTextPlugin({
@@ -60,9 +59,9 @@ module.exports = {
 			allChunks: true
 		}),
 		new webpack.ProvidePlugin({
-			tether: 'tether',
-			Tether: 'tether',
-			"window.Tether": 'tether',
+			tether: "tether",
+			Tether: "tether",
+			"window.Tether": "tether",
 			"window.jQuery": "jquery",
 			$: "jquery",
 			jQuery: "jquery",

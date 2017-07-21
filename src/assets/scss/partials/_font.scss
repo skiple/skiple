@@ -1,12 +1,19 @@
+
+//FONT FAMILY
+
 @font-face {
-  font-family: "Reguler";
-  src: url("../fonts/HelveticaNeue-Reguler.ttf") format("ttf");
+  font-family: "reguler";
+  src: url("../fonts/HelveticaNeue-Reguler.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "Bold";
-  src: url("../fonts/HelveticaNeue-Bold.ttf") format("ttf");
+  font-family: "bold";
+  src: url("../fonts/HelveticaNeue-Bold.ttf") format("truetype");
 }
 
-$reguler: "Reguler";
-$bold: "Bold";
+$fontreguler: "reguler";
+$fontbold: "bold";
+
+$font-s: 12pt;
+$font-m: 15pt;
+$font-l: 33pt;

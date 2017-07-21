@@ -1,21 +1,80 @@
-@import "./partials/_font";
+@import "partials/_font";
+@import "partials/color";
+
+// GLOBAL
+.content{
+	margin-top: 90px;
+}
 
 // HEADER
-
 .navs{
 	margin-top: 50px;
+	&-border{
+		margin-top: 40px;
+		border-bottom: 2px solid #bfbfbf;
+	}
 }
 
 .nav-right{
 	display: block;
-	vertical-align: middle;
 	margin-top: 25px;
+	cursor: pointer;
 	li{
 		display: inline-block;
-		font-family: $reguler;
-		letter-spacing: 1px;
-		padding-left: 25px;
-		padding-right: 25px;
+		font-family: $fontreguler;
+		font-size: $font-s;
+		letter-spacing: 2px;
 	}
+	li a {
+		color: $font-black !important;
+		text-decoration: none;
+	}
+}
+
+// LIST ACTIVITY
+.caption{
+	margin-top: 30px;
+	color: $font-black;
+	font-family: $fontbold;
+}
+
+// TRANSACTION
+.transaction{
+	h1{
+		font-family: $fontbold;
+		margin-bottom: 2rem;
+	}
+}
+
+// MODAL
+.modal-content{
+	border: none;
+	.modal-body{
+		h1{
+			font-family: $fontbold;
+			margin: 30px 0;
+		}
+	}
+}
+
+.form-check-input:only-child{
+	position: fixed;
+}
+
+.form-group{
+	margin-bottom: 1.6rem;
+}
+
+.cs-modal{
+	&-login{
+		top: 15%;
+	}
+	&-register{
+		top: 5%;
+	}
+}
+
+.button{
+	margin: 50px 0;
 }
 

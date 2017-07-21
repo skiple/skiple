@@ -34,6 +34,10 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+			},
+			{
+				test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
+				loader: 'file-loader?name=public/fonts/[name].[ext]'
 			}
 		]
 	},
