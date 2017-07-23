@@ -1,11 +1,17 @@
-import { GET_ALL_ACTIVITIES, SELECTED_ACTIVITY } from "actions/const";
+import {
+	GET_ALL_ACTIVITIES,
+	GET_ACTIVITY
+} from "actions/const";
 
-export default function (state = {}, action) {
+const INITIAL_STATE = { all: [], details: {} }
+
+export default function (state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case GET_ALL_ACTIVITIES:
-			return action.payload;
-		case SELECTED_ACTIVITY:
-			return action.payload
+			return { ...state, all: action.payload };
+		case GET_ACTIVITY:
+			return { ...state, details: action.payload };
+		default:
+			return state;
 	}
-	return state;
 }

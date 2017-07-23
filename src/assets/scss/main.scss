@@ -2,8 +2,16 @@
 @import "partials/color";
 
 // GLOBAL
+h1,h2,h3,h4,h5,h6{
+	font-family: $fontbold;
+}
+
 .content{
 	margin-top: 90px;
+}
+
+.font-blue{
+	color: $font-lightBlue;
 }
 
 // HEADER
@@ -11,7 +19,7 @@
 	margin-top: 50px;
 	&-border{
 		margin-top: 40px;
-		border-bottom: 2px solid #bfbfbf;
+		border-bottom: 2px solid $border;
 	}
 }
 
@@ -38,10 +46,50 @@
 	font-family: $fontbold;
 }
 
+// ACTIVITY DETAILS
+.header-content{
+	margin-bottom: 50px;
+	h3{
+		color: $font-black;
+		font-size: $font-l;
+	}
+	p{
+		font-family: $fontbold;
+		font-size: $font-s;
+	}
+}
+
+.body-content{
+	border-bottom: 2px solid $border;
+	margin-bottom: 50px;
+	.header-list{
+		margin-bottom: 30px;
+		color: $font-black;
+		font-size: $font-m;
+		font-family: $fontbold;
+	}
+	p{
+		color: $font-grey;
+		margin-bottom: 50px;
+		font-size: $font-s;
+	}
+}
+
+.order-content{
+	margin-top: 50px;
+	font-family: $fontbold;
+	p:nth-child(1){
+		font-size: $font-s;
+	}
+	p:nth-child(2){
+		font-size: $font-m;
+	}
+}
+
+
 // TRANSACTION
 .transaction{
 	h1{
-		font-family: $fontbold;
 		margin-bottom: 2rem;
 	}
 }
@@ -51,7 +99,6 @@
 	border: none;
 	.modal-body{
 		h1{
-			font-family: $fontbold;
 			margin: 30px 0;
 		}
 	}

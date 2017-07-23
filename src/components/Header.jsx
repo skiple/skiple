@@ -37,7 +37,7 @@ class Header extends Component {
 			<div>
 				<nav className="navs">
 					<div className="float-left">
-						<Link to={'/'}><img src="src/assets/img/logo.png" width="230px" alt="" /></Link>
+						<Link to={'/'}><img src="/src/assets/img/logo.png" width="230px" alt="" /></Link>
 					</div>
 					<div className="float-right">
 						<ul className="nav-right">

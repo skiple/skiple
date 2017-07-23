@@ -1,5 +1,8 @@
 import axios from "axios";
-import { GET_ALL_ACTIVITIES, SELECTED_ACTIVITY } from "./const";
+import { 
+	GET_ALL_ACTIVITIES,
+	GET_ACTIVITY
+} from "./const";
 
 export async function getAllActivities() {
 	const request = await axios.get("/activity");
@@ -10,11 +13,11 @@ export async function getAllActivities() {
 	}
 }
 
-export async function selectedActivity(activity){
-	const request = await axios.get(`/activity/${activity}`);
+export async function getActivity(id){
+	const request = await axios.get(`/activity/${id}`);
 
 	return{
-		type: SELECTED_ACTIVITY,
+		type: GET_ACTIVITY,
 		payload: request
 	}
 }

@@ -9,6 +9,8 @@ export async function getAllTransaction() {
 		}
 	});
 
+	console.log(request);
+
 	return {
 		type: GET_ALL_TRANSACTION,
 		payload: request

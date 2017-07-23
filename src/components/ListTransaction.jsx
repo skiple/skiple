@@ -34,19 +34,17 @@ class Transaction extends Component {
 	};
 
 	renderListTransaction() {
-		const data = this.props.transaction.transactions;
-
-		if (data.length == 0) {
+		if (this.props.transaction.transactions.length == 0) {
 			return (
 				<tr>
 					<th className="text-center" colSpan="4">Tidak ada transaksi</th>
 				</tr>
 			)
 		} else {
-			return data.map(res => {
+			return this.props.transaction.transactions.map(data => {
 				return (
-					<tr key={res.id_transaction}>
-						<td></td>
+					<tr key={data.activity.id_activity}>
+						<td>{data.id_transaction}</td>
 					</tr>
 				)
 			})

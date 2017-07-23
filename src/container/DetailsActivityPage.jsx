@@ -6,7 +6,7 @@ class DetailsActivityPage extends Component {
 	render() {
 		return (
 			<div>
-				<DetailsActivity />
+				<DetailsActivity params={{ id: this.props.params.id }}/>
 			</div>
 		)
 	}

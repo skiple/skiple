@@ -11,7 +11,7 @@ const Routes = (props) => (
 		<Route path="/" components={ App }>
 			<IndexRoute components={ MainPage } />
 			<Route path="transaction" components={ TransactionPage } />
-			<Route path="activity" components={ DetailsActivityPage }/>
+			<Route path="activity/:id" components={ DetailsActivityPage }/>
 		</Route>
 	</Router>
 );

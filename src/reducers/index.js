@@ -7,7 +7,7 @@ import TransactionReducers from "./reducers_transaction";
 const rootReducer = combineReducers({
 	activity: ActivityReducers,
 	user: UserReducers,
-	transaction: TransactionReducers
+	transaction: TransactionReducers,
 });
 
 export default rootReducer;

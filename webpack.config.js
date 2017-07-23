@@ -22,7 +22,7 @@ module.exports = {
 				use: {
 					loader: 'babel-loader?cacheDirectory=true',
 					options: {
-						presets: ['env', 'react']
+						presets: ['env', 'react', 'stage-0']
 					}
 				}
 			},
@@ -48,10 +48,6 @@ module.exports = {
 			actions: path.resolve(__dirname, 'src/actions/'),
 			reducers: path.resolve(__dirname, 'src/reducers/')
 		}
-	},
-	devServer: {
-		disableHostCheck: true,
-		historyApiFallback: true
 	},
 	plugins: [
 		new ExtractTextPlugin({
