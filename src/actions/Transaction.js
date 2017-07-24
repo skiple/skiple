@@ -1,18 +1,16 @@
-import axios from "axios";
-import { GET_ALL_TRANSACTION } from "./const"
+import axios from 'axios'
+import { GET_ALL_TRANSACTION } from './const'
 
-export async function getAllTransaction() {
-	let token = localStorage.getItem("token");
-	const request = await axios.get("/transaction", {
-		headers: {
-			'Authorization': `Bearer ${token}`
-		}
-	});
+export async function getAllTransaction () {
+  let token = localStorage.getItem('token')
+  const request = await axios.get('/transaction', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
 
-	console.log(request);
-
-	return {
-		type: GET_ALL_TRANSACTION,
-		payload: request
-	}
+  return {
+    type: GET_ALL_TRANSACTION,
+    payload: request
+  }
 }

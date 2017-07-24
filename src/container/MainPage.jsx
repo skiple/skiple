@@ -1,15 +1,15 @@
-import { Component } from "react";
+import React, { Component } from 'react'
 
-import ListActivity from "components/ListActivity"
+import ListActivity from 'components/ListActivity'
 
 class MainPage extends Component {
-	render() {
-		return (
-			<div>
-				<ListActivity />
-			</div>
-		)
-	}
+  render () {
+    return (
+      <div>
+        <ListActivity />
+      </div>
+    )
+  }
 }
 
-export default MainPage;
+export default MainPage

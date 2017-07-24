@@ -76,16 +76,26 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .order-content{
-	margin-top: 50px;
+	margin-top: 30px;
 	font-family: $fontbold;
-	p:nth-child(1){
-		font-size: $font-s;
-	}
-	p:nth-child(2){
+}
+
+.quantity{
+	margin-top: 20px;
+	border-bottom: 2px solid $border;
+	p{
+		margin-bottom: 40px;
 		font-size: $font-m;
 	}
 }
 
+.form-control{
+	width: 17%;
+}
+
+.slot-content{
+	margin-top: 30px;
+}
 
 // TRANSACTION
 .transaction{

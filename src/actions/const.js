@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios'
 
-axios.defaults.baseURL = "http://rp.rentuff.id/api";
+axios.defaults.baseURL = 'http://rp.rentuff.id/api'
 
 // ACTIVITY
-export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES";
-export const GET_ACTIVITY = "GET_ACTIVITY";
+export const GET_ALL_ACTIVITIES = 'GET_ALL_ACTIVITIES'
+export const GET_ACTIVITY = 'GET_ACTIVITY'
 
 // USER
-export const SIGN_IN = "SIGN_IN";
-export const LOG_OUT = "LOG_OUT";
+export const SIGN_IN = 'SIGN_IN'
+export const LOG_OUT = 'LOG_OUT'
 
 // TRANSACTION
-export const GET_ALL_TRANSACTION = "GET_ALL_TRANSACTION";
+export const GET_ALL_TRANSACTION = 'GET_ALL_TRANSACTION'
