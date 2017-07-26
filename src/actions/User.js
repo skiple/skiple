@@ -3,6 +3,9 @@ import qs from 'qs'
 
 import { SIGN_IN, LOG_OUT } from './const'
 
+const token = localStorage.getItem('token')
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
 export async function signIn (email, password) {
   const request = await axios.post('/signin',
     qs.stringify({
@@ -10,17 +13,10 @@ export async function signIn (email, password) {
       password
     })
   )
+  console.log(request)
 
   localStorage.setItem('firstName', request.data.user.first_name)
   localStorage.setItem('token', request.data.api_token)
-
-  const data = await axios.get('/transaction', {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
-  })
-
-  localStorage.setItem('totalTransaction', data.data.transactions.length)
 
   return {
     type: SIGN_IN,
@@ -29,11 +25,7 @@ export async function signIn (email, password) {
 }
 
 export async function signOut () {
-  await axios.get('/logout', {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    }
-  })
+  await axios.get('/logout')
 
   return {
     type: LOG_OUT

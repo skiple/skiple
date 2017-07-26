@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { getAllTransaction } from 'actions/Transaction'
 
@@ -44,9 +45,9 @@ class Transaction extends Component {
     }
   }
 
-  renderButton (status) {
+  renderButton (status, id) {
     if (status === 0) {
-      return (<button className="btn btn-primary">Konfirmasi</button>)
+      return (<button className="btn btn-primary"><Link to={`/confirmation/${id}`}>Konfirmasi</Link></button>)
     } else if (status === 1) {
       return (<button className="btn btn-primary" disabled>Konfirmasi</button>)
     }
@@ -72,7 +73,7 @@ class Transaction extends Component {
             <td>{data.activity.activity_name}</td>
             <td>{data.total_price}</td>
             <td>{this.convertStatus(data.status)}</td>
-            <td>{this.renderButton(data.status)}</td>
+            <td>{this.renderButton(data.status, data.id_transaction)}</td>
           </tr>
         )
       })

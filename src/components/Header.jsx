@@ -10,7 +10,9 @@ class Header extends Component {
   constructor (props) {
     super(props)
 
-    this.state = { firstName: '' }
+    this.state = {
+      firstName: ''
+    }
 
     this.showModal = this.showModal.bind(this)
     this.handleSignOut = this.handleSignOut.bind(this)
@@ -42,7 +44,7 @@ class Header extends Component {
           <div className="float-right">
             <ul className="nav-right">
               <li className="nav-item"><Link className="nav-link" to={''}>About Us</Link></li>
-              <li className="nav-item"><Link className="nav-link" to={'transaction'}>Transaction({localStorage.getItem('totalTransaction') || 0})</Link></li>
+              <li className="nav-item"><Link className="nav-link" to={'/transaction'}>Transaction(0)</Link></li>
               {
                 !this.state.firstName
                   ? <li className="nav-item nav-link" onClick={this.showModal}>Log In</li>

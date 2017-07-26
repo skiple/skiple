@@ -5,13 +5,17 @@ import App from 'container/App'
 import MainPage from 'container/MainPage'
 import TransactionPage from 'container/TransactionPage'
 import DetailsActivityPage from 'container/DetailsActivityPage'
+import CheckOutPage from 'container/CheckOutPage'
+import ConfirmationPage from 'container/ConfirmationPage'
 
 const Routes = (props) => (
   <Router {...props}>
-    <Route path="/" components={ App }>
-      <IndexRoute components={ MainPage } />
-      <Route path="transaction" components={ TransactionPage } />
-      <Route path="activity/:id" components={ DetailsActivityPage }/>
+    <Route path="/" components={App}>
+      <IndexRoute components={MainPage} />
+      <Route path="/transaction" components={TransactionPage} />
+      <Route path="/checkout" components={CheckOutPage} />
+      <Route path="/activity/:id" components={DetailsActivityPage}/>
+      <Route path="/confirmation/:id" components={ConfirmationPage}/>
     </Route>
   </Router>
 )

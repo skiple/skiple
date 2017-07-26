@@ -53,10 +53,9 @@ class Modal extends Component {
                 </div>
                 <div className="float-left">
                   <div className="form-check">
-                    <span className="form-check-label">
-                      <input type="checkbox" className="form-check-input" />
-                      Remember me
-                    </span>
+                    <label className="form-check-label">
+                      <input type="checkbox" className="form-check-input" /> Remember me
+                    </label>
                   </div>
                 </div>
                 <div className="float-right">
