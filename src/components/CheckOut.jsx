@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createNewTransaction } from 'actions/Transaction'
 
@@ -39,7 +38,7 @@ class CheckOut extends Component {
   checkOut (quantity, date, idActivity) {
     this.props.createNewTransaction(quantity, date, idActivity)
       .then(() => {
-        this.context.router.push('/')
+        window.location.href = '/transaction'
       })
   }
 
@@ -48,7 +47,10 @@ class CheckOut extends Component {
 
     return (
       <div className="content">
-        <div className="row align-items-center" style={{ 'borderBottom': '2px solid #bfbfbf' }}>
+        <div className="row">
+          <div className="col-12 text-right mb-4">step 2 of 3</div>
+        </div>
+        <div className="row align-items-center" style={{ 'borderBottom': '1px solid #bfbfbf' }}>
           <div className="col-2">
             <img className="img-fluid mb-4" src="/src/assets/img/2.png" alt=""/>
           </div>
@@ -60,7 +62,7 @@ class CheckOut extends Component {
           <div className="col-3">Guest<br/><br/>{quantity}</div>
           <div className="col-2">Price<br/><br/>IDR {selected.price}</div>
         </div>
-        <div className="row mt-4" style={{ 'borderBottom': '2px solid #bfbfbf' }}>
+        <div className="row mt-4" style={{ 'borderBottom': '1px solid #bfbfbf' }}>
           <div className="col-3 mb-4"><input type="text" className="form-control" placeholder="Have a Magic Coupon?"/></div>
           <div className="col-4"><button className="btn btn-primary">Apply</button></div>
           <div className="col-3 pt-2">Total</div>
@@ -80,10 +82,6 @@ function mapStateToProps (state) {
     dates: state.activity.dates,
     quantity: state.activity.quantity
   }
-}
-
-CheckOut.contextTypes = {
-  router: PropTypes.object
 }
 
 export default connect(mapStateToProps, { createNewTransaction })(CheckOut)

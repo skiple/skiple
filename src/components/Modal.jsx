@@ -1,38 +1,91 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { signIn } from 'actions/User'
+import { signIn, signUp } from 'actions/User'
+import { selectedActivity } from 'actions/Activity'
 
 class Modal extends Component {
   constructor (props) {
     super(props)
 
-    this.state = { register: false }
+    this.state = {
+      modal: false,
+      emailLogin: '',
+      passLogin: '',
+      required: ''
+    }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.login = this.login.bind(this)
+    this.signUp = this.signUp.bind(this)
     this.changeModal = this.changeModal.bind(this)
   }
 
   changeModal () {
-    this.setState({ register: !this.state.register })
+    this.setState({ modal: !this.state.modal })
   }
 
-  handleSubmit () {
-    this.props.signIn(this.email.value, this.password.value)
-      .then(() => {
-        window.location.reload()
-      })
+  login () {
+    if (this.props.params.id === 1) {
+      if (!this.email.value && !this.password.value) this.setState({ emailLogin: 'The email field is required', passLogin: 'The password field is required' })
+      else if (!this.email.value) this.setState({ emailLogin: 'The email field is required' })
+      else if (!this.password.value) this.setState({ passLogin: 'The password field is required' })
+      else {
+        this.props.signIn(this.email.value, this.password.value)
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.setState({ required: error.response.data.message })
+            }
+          }).then(() => window.location.reload())
+      }
+    } else {
+      if (!this.email.value && !this.password.value) this.setState({ emailLogin: 'The email field is required', passLogin: 'The password field is required' })
+      else if (!this.email.value) this.setState({ emailLogin: 'The email field is required' })
+      else if (!this.password.value) this.setState({ passLogin: 'The password field is required' })
+      else {
+        this.props.signIn(this.email.value, this.password.value)
+          .then(() => {
+            $('.myModalAuth').modal('hide')
+            this.props.selectedActivity(this.props.params.activity, this.props.params.date, this.props.params.quantity)
+            this.context.router.push('/checkout')
+          })
+      }
+    }
+  }
+
+  signUp () {
+    let data = {
+      first_name: this.firstName.value,
+      last_name: this.lastName.value,
+      email: this.email.value,
+      phone: this.phone.value,
+      birthday: this.birthday.value,
+      password: this.password.value,
+      password_confirmation: this.confirmPassword.value
+    }
+
+    if (!this.firstName.value || !this.lastName.value || !this.email.value || !this.phone.value || !this.birthday.value || !this.password.value || !this.confirmPassword.value) {
+      this.setState({ required: 'All fields is required' })
+    } else {
+      if (this.password.value.length < 8) {
+        this.setState({ required: 'The password must be at least 8 characters' })
+      } else if (this.confirmPassword.value !== this.password.value) {
+        this.setState({ required: 'The password confirmation does not match' })
+      } else {
+        this.props.signUp(data).then(() => window.location.reload())
+      }
+    }
   }
 
   render () {
     return (
-      <div className="modal fade" id="myModal1" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade myModalAuth" id="myModalAuth" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         {this.renderContentModal()}
       </div>
     )
   }
 
   renderContentModal () {
-    if (!this.state.register) {
+    if (!this.state.modal) {
       return (
         <div className="modal-dialog cs-modal-login" role="document">
           <div className="modal-content">
@@ -41,39 +94,39 @@ class Modal extends Component {
                 <div className="row">
                   <div className="col-12">
                     <h1>Halo!</h1>
+                    <p className="text-danger">{this.state.required}</p>
                     <form>
                       <div className="form-group">
-                        <input type="email" className="form-control form-control-lg" id="email" placeholder="Enter email" ref={e => this.email = e} />
+                        <input type="email" className="form-control form-control-lg form-custom" id="email" placeholder="Enter email" ref={e => this.email = e} />
                       </div>
                       <div className="form-group">
-                        <input type="password" className="form-control form-control-lg" id="password" placeholder="Password" ref={e => this.password = e} />
+                        <input type="password" className="form-control form-control-lg form-custom" id="password" placeholder="Password" ref={e => this.password = e} />
                       </div>
                     </form>
                   </div>
                 </div>
                 <div className="float-left">
-                  <div className="form-check">
-                    <label className="form-check-label">
-                      <input type="checkbox" className="form-check-input" /> Remember me
-                    </label>
+                  <div className="form-check font-grey">
+                    <label className="form-check-label"></label>
+                    <input type="checkbox" className="form-check-input" />Remember me
                   </div>
                 </div>
                 <div className="float-right">
-                  Forget the password?
+                  <p className="font-grey">Forgot the password?</p>
                 </div>
                 <div className="clearfix"></div>
                 <div className="row">
                   <div className="col-12">
-                    <button type="button" className="btn btn-lg btn-primary btn-block button" onClick={this.handleSubmit}>Log in</button>
+                    <button type="button" className="btn btn-lg btn-primary btn-block button" onClick={this.login}>Log in</button>
                   </div>
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footer font-grey">
                   <div className="clearfix"></div>
                   <div className="float-left">
                     <p>Don't have any account?</p>
                   </div>
                   <div className="float-right">
-                    <span onClick={this.changeModal}>Sign up</span>
+                    <p onClick={this.changeModal}><span className="font-blue" style={{ 'cursor': 'pointer' }}>Sign up</span></p>
                   </div>
                 </div>
               </div>
@@ -90,52 +143,40 @@ class Modal extends Component {
                 <div className="row">
                   <div className="col-12">
                     <h1>Let's get started</h1>
+                    <p className="text-danger">{this.state.required}</p>
                     <form>
                       <div className="form-group">
-                        <input type="text" className="form-control form-control-lg" id="email" placeholder="First Name" ref={e => this.email = e} />
+                        <input type="text" className="form-control form-control-lg form-custom" id="email" placeholder="First Name" ref={e => this.firstName = e} />
                       </div>
                       <div className="form-group">
-                        <input type="text" className="form-control form-control-lg" id="password" placeholder="Last Name" ref={e => this.password = e} />
+                        <input type="text" className="form-control form-control-lg form-custom" id="password" placeholder="Last Name" ref={e => this.lastName = e} />
                       </div>
                       <div className="form-group">
-                        <input type="email" className="form-control form-control-lg" id="password" placeholder="Email" ref={e => this.password = e} />
+                        <input type="email" className="form-control form-control-lg form-custom" id="password" placeholder="Email" ref={e => this.email = e} />
                       </div>
                       <div className="form-group">
-                        <input type="number" className="form-control form-control-lg" id="password" placeholder="Phone Number" ref={e => this.password = e} />
+                        <input type="number" className="form-control form-control-lg form-custom" id="password" placeholder="Phone Number" ref={e => this.phone = e} />
                       </div>
                       <div className="form-group">
-                        <input type="number" className="form-control form-control-lg" id="password" placeholder="Birthday" ref={e => this.password = e} />
+                        <input type="date" className="form-control form-control-lg form-custom" id="password" placeholder="Birthday" ref={e => this.birthday = e} />
                       </div>
                       <div className="form-group">
-                        <input type="password" className="form-control form-control-lg" id="password" placeholder="Password" ref={e => this.password = e} />
+                        <input type="password" className="form-control form-control-lg form-custom" id="password" placeholder="Password" ref={e => this.password = e} />
                       </div>
+                      <div className="form-group">
+                        <input type="password" className="form-control form-control-lg form-custom" id="password" placeholder="Confirmation Password" ref={e => this.confirmPassword = e} />
+                      </div>
+                      <button type="button" className="btn btn-lg btn-primary btn-block form-custom" onClick={this.signUp}>Sign up</button>
                     </form>
                   </div>
                 </div>
-                <div className="float-left">
-                  <div className="form-check">
-                    <span className="form-check-label">
-                      <input type="checkbox" className="form-check-input" />
-                      Remember me
-                    </span>
-                  </div>
-                </div>
-                <div className="float-right">
-                  Forget the password?
-                </div>
-                <div className="clearfix"></div>
-                <div className="row">
-                  <div className="col-12">
-                    <button type="button" className="btn btn-lg btn-primary btn-block button" onClick={this.handleSubmit}>Log in</button>
-                  </div>
-                </div>
-                <div className="modal-footer">
+                <div className="modal-footer font-grey">
                   <div className="clearfix"></div>
                   <div className="float-left">
-                    Already have an account?
+                    <p>Already have an account?</p>
                   </div>
                   <div className="float-right">
-                    <span onClick={this.changeModal}>Login</span>
+                    <p onClick={this.changeModal}><span className="font-blue" style={{ 'cursor': 'pointer' }}>Login</span></p>
                   </div>
                 </div>
               </div>
@@ -147,4 +188,8 @@ class Modal extends Component {
   }
 }
 
-export default connect(null, { signIn })(Modal)
+Modal.contextTypes = {
+  router: PropTypes.object
+}
+
+export default connect(null, { signIn, signUp, selectedActivity })(Modal)

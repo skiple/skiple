@@ -1,7 +1,11 @@
-@import "partials/_font";
+@import "partials/font";
 @import "partials/color";
 
 // GLOBAL
+body {
+  color: $black;
+}
+
 h1,h2,h3,h4,h5,h6{
   font-family: $fontbold;
 }
@@ -10,12 +14,46 @@ h1,h2,h3,h4,h5,h6{
   margin-top: 90px;
 }
 
-.font-blue{
-  color: $font-lightBlue;
+.font{
+  &-blue{
+    color: $lightBlue;
+  }
+  &-black{
+    color: $black;
+  }
+  &-grey{
+    color: $grey;
+  }
+}
+
+input::-webkit-input-placeholder .form-control{
+  color: $lightGrey;
 }
 
 .no-m{
   margin: 0;
+}
+
+.btn-primary {
+  background-color: $lightBlue;
+  border-color: $lightBlue;
+  cursor: pointer;
+  &:hover{
+    background-color: $lightBlue-hover;
+    border-color: $lightBlue-hover;
+  }
+  &:disabled{
+    background-color: $lightBlue-hover;
+    border-color: $lightBlue-hover;
+  }
+  &.disabled{
+    background-color: $lightBlue-disabled;
+    border-color: $lightBlue-disabled;
+  }
+}
+
+.active{
+  color: $lightBlue !important;
 }
 
 // HEADER
@@ -23,7 +61,7 @@ h1,h2,h3,h4,h5,h6{
   margin-top: 50px;
   &-border{
     margin-top: 40px;
-    border-bottom: 2px solid $border;
+    border-bottom: 1px solid $lightGrey;
   }
 }
 
@@ -36,10 +74,16 @@ h1,h2,h3,h4,h5,h6{
     font-family: $fontreguler;
     font-size: $font-s;
     letter-spacing: 2px;
+    &:hover{
+      color: $lightBlue;
+    }
   }
   li a {
-    color: $font-black !important;
+    color: $black;
     text-decoration: none;
+    &:hover{
+      color: $lightBlue;
+    }
   }
 }
 
@@ -47,37 +91,37 @@ h1,h2,h3,h4,h5,h6{
 .caption{
   margin-top: 30px;
   margin-bottom: 60px;
-  color: $font-black;
   font-family: $fontbold;
   p{
     font-family: $fontreguler;
   }
 }
 
+.col-img{
+  padding-left: 39px;
+}
+
 // ACTIVITY DETAILS
 .header-content{
   margin-bottom: 50px;
   h3{
-    color: $font-black;
     font-size: $font-l;
   }
   p{
-    font-family: $fontbold;
+    font-family: $fontreguler;
     font-size: $font-s;
   }
 }
 
 .body-content{
-  border-bottom: 2px solid $border;
+  border-bottom: 1px solid $lightGrey;
   margin-bottom: 50px;
   .header-list{
     margin-bottom: 30px;
-    color: $font-black;
     font-size: $font-m;
     font-family: $fontbold;
   }
   p{
-    color: $font-grey;
     margin-bottom: 50px;
     font-size: $font-s;
   }
@@ -90,18 +134,21 @@ h1,h2,h3,h4,h5,h6{
 
 .quantity{
   margin-top: 20px;
-  border-bottom: 2px solid $border;
+  border-bottom: 1px solid $lightGrey;
   p{
     margin-bottom: 40px;
     font-size: $font-m;
   }
   input{
-    width: 17%;
+    width: 90px;
   }
 }
 
 .slot-content{
   margin-top: 30px;
+  button{
+    width: 90px;
+  }
 }
 
 // CHECKOUT
@@ -121,9 +168,20 @@ h1,h2,h3,h4,h5,h6{
 .modal-content{
   border: none;
   .modal-body{
+    padding-left: 40px;
+    padding-right: 40px;
     h1{
       margin: 30px 0;
     }
+    button{
+      margin-top: 10px;
+    }
+  }
+}
+
+.list-unstyled{
+  button{
+    width: 90px;
   }
 }
 
@@ -131,12 +189,16 @@ h1,h2,h3,h4,h5,h6{
   margin-bottom: 1.6rem;
 }
 
+.form-custom{
+  border: 1px solid $lightGrey;
+}
+
 .cs-modal{
   &-login{
     top: 15%;
   }
   &-register{
-    top: 5%;
+    top:5%
   }
 }
 

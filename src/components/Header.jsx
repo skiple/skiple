@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { findDOMNode } from 'react-dom'
 import { signOut } from 'actions/User'
+import { getAllTransaction } from 'actions/Transaction'
 
 import Modal from './Modal'
 
@@ -11,7 +12,8 @@ class Header extends Component {
     super(props)
 
     this.state = {
-      firstName: ''
+      firstName: '',
+      transaction: ''
     }
 
     this.showModal = this.showModal.bind(this)
@@ -19,7 +21,10 @@ class Header extends Component {
   }
 
   componentDidMount () {
-    this.setState({ firstName: localStorage.getItem('firstName') })
+    if (localStorage.getItem('token')) {
+      this.setState({ firstName: localStorage.getItem('firstName') })
+      this.props.getAllTransaction()
+    }
   }
 
   showModal () {
@@ -34,6 +39,18 @@ class Header extends Component {
       })
   }
 
+  getTotalTransaction () {
+    const { transaction } = this.props
+    let total = 0
+
+    for (let i = 0; i < transaction.transactions.length; i++) {
+      if (transaction.transactions[i].status === 0) {
+        total += 1
+      }
+    }
+    return total
+  }
+
   render () {
     return (
       <div>
@@ -43,30 +60,30 @@ class Header extends Component {
           </div>
           <div className="float-right">
             <ul className="nav-right">
-              <li className="nav-item"><Link className="nav-link" to={''}>About Us</Link></li>
-              <li className="nav-item"><Link className="nav-link" to={'/transaction'}>Transaction(0)</Link></li>
-              {
-                !this.state.firstName
-                  ? <li className="nav-item nav-link" onClick={this.showModal}>Log In</li>
-                  : <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {this.state.firstName}
-                    </a>
-                    <div className="dropdown-menu">
-                      <Link className="dropdown-item" to={''}>Edit profile</Link>
-                      <Link className="dropdown-item" to={''} onClick={this.handleSignOut}>Log out</Link>
-                    </div>
-                  </li>
-              }
+              <li className="nav-item"><Link className="nav-link" to={'/'}>About Us</Link></li>
+              {!this.props.transaction
+                ? <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction(0)</Link></li>
+                : <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction({this.getTotalTransaction()})</Link></li>}
+              {!this.state.firstName
+                ? <li className="nav-item nav-link" onClick={this.showModal}>Log In</li>
+                : <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {this.state.firstName}
+                  </a>
+                  <div className="dropdown-menu">
+                    <Link className="dropdown-item" to={''}>Edit profile</Link>
+                    <Link className="dropdown-item" to={''} onClick={this.handleSignOut}>Log out</Link>
+                  </div>
+                </li>}
             </ul>
           </div>
           <div className="clearfix"></div>
           <div className="navs-border"></div>
-          <Modal ref={e => this.modal = e} />
+          <Modal ref={e => this.modal = e} params={{ id: 1 }}/>
         </nav>
       </div>
     )
   }
 }
 
-export default connect(null, { signOut })(Header)
+export default connect(state => ({ transaction: state.transaction.data }), { signOut, getAllTransaction })(Header)
