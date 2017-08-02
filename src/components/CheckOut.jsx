@@ -52,7 +52,7 @@ class CheckOut extends Component {
         </div>
         <div className="row align-items-center" style={{ 'borderBottom': '1px solid #bfbfbf' }}>
           <div className="col-2">
-            <img className="img-fluid mb-4" src="/src/assets/img/2.png" alt=""/>
+            <img className="img-fluid mb-4" src={selected.photo1} alt=""/>
           </div>
           <div className="col-5">
             <h2>{selected.activity_name}</h2>

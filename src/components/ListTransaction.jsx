@@ -49,7 +49,7 @@ class Transaction extends Component {
     if (status === 0) {
       return (<button className="btn btn-primary"><Link to={`/confirmation/${id}`}>Konfirmasi</Link></button>)
     } else if (status === 1) {
-      return (<button className="btn btn-primary" disabled>Konfirmasi</button>)
+      return (<button className="btn btn-primary disabled">Konfirmasi</button>)
     }
   }
 

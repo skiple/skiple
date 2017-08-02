@@ -62,7 +62,6 @@ class Confirmation extends Component {
                 </select>
               </div>
               <button type="submit" className="btn btn-primary float-right">Konfirmasi</button>
-              <div className="clearfix"></div>
             </form>
           </div>
         </div>

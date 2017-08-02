@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -20,23 +20,38 @@ arrOfMount['10'] = 'Oktober'
 arrOfMount['11'] = 'November'
 arrOfMount['12'] = 'Desember'
 
-class DetailsActivity extends PureComponent {
+class DetailsActivity extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
+      data: {},
       date: '',
       required: '',
-      quantity: ''
+      quantity: '',
+      mainPhoto: '',
+      secondPhoto: '',
+      thirdPhoto: '',
+      fourthPhoto: '',
+      slot: '',
+      over: false
     }
 
     this.handleModal = this.handleModal.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.checkOut = this.checkOut.bind(this)
+    this.changeInitialPhoto = this.changeInitialPhoto.bind(this)
   }
 
   componentDidMount () {
     this.props.getActivity(this.props.params.id)
+      .then(() => {
+        this.setState({ data: this.props.details.activity })
+      })
+  }
+
+  componentWillUnmount () {
+    this.setState(this.state)
   }
 
   handleModal () {
@@ -44,25 +59,50 @@ class DetailsActivity extends PureComponent {
   }
 
   handleChange (e) {
-    e.preventDefault()
     this.setState({ quantity: e.target.value })
   }
 
-  convertDate (date) {
-    let dateSplit = date.split(' ')
-    let newDate = dateSplit[0].split('-')
-    return `${newDate[2]} ${arrOfMount[newDate[1]]} ${newDate[0]}`
+  changeInitialPhoto (e) {
+    let img = this.img.src
+    if (e.target.id === 'img1') {
+      this.setState({ mainPhoto: e.target.src })
+      this.setState({ secondPhoto: img })
+    } else if (e.target.id === 'img2') {
+      this.setState({ mainPhoto: e.target.src })
+      this.setState({ thirdPhoto: img })
+    } else {
+      this.setState({ mainPhoto: e.target.src })
+      this.setState({ fourthPhoto: img })
+    }
   }
 
-  convertTime (startTime, endTime) {
+  convertPrice () {
+    let price = this.state.data.price
+    return Number(price).toLocaleString('de')
+  }
+
+  convertDate (startDate, endDate) {
+    let startDateSplit = startDate.split(' ')
+    let newStartDate = startDateSplit[0].split('-')
+
+    let endDateSplit = endDate.split(' ')
+    let newEndDate = endDateSplit[0].split('-')
+
+    return `${newStartDate[2]} ${arrOfMount[newStartDate[1]]} ${newStartDate[0]} - ${newEndDate[2]} ${arrOfMount[newEndDate[1]]} ${newEndDate[0]}`
+  }
+
+  convertTime (day, startTime, endTime, duration) {
     let newStartTime = startTime.substring(0, 5)
     let newEndTime = endTime.substring(0, 5)
-    return `${newStartTime} - ${newEndTime}`
+    return (<span>Hari ke-{day} <span className="font-blue">{`${newStartTime} - ${newEndTime}`}</span></span>)
   }
 
   selectedDate (date) {
     $('#myModalTanggal').modal('hide')
-    this.setState({ date: date })
+    this.setState({
+      date,
+      slot: `Slot maksimal ${date.max_participants} orang, sekarang tersisa ${date.participant_left} orang`
+    })
   }
 
   checkOut () {
@@ -74,10 +114,24 @@ class DetailsActivity extends PureComponent {
       this.setState({ required: 'input quality' })
     } else {
       if (!localStorage.getItem('token')) {
-        $(findDOMNode(this.modal)).modal('show')
+        if (this.state.quantity > this.state.date.participant_left) {
+          this.setState({
+            over: !this.state.over,
+            slot: `Melebihi kapasitas! slot yang tersedia hanya ${this.state.date.participant_left}`
+          })
+        } else {
+          $(findDOMNode(this.modal)).modal('show')
+        }
       } else {
-        this.props.selectedActivity(this.props.details.activity, this.state.date, this.state.quantity)
-        this.context.router.push('/checkout')
+        if (this.state.quantity > this.state.date.participant_left) {
+          this.setState({
+            over: !this.state.over,
+            slot: `Melebihi kapasitas! slot yang tersedia hanya ${this.state.date.participant_left}`
+          })
+        } else {
+          this.props.selectedActivity(this.props.details.activity, this.state.date, this.state.quantity)
+          this.context.router.push('/checkout')
+        }
       }
     }
   }
@@ -90,11 +144,11 @@ class DetailsActivity extends PureComponent {
       let participantLeft = data.participant_left
       return (
         <li className="mb-4" key={data.id_activity_date}>
-          {this.convertDate(data.date)}
-          <button className="btn btn-primary float-right" onClick={() => this.selectedDate(data)}>Pilih</button>
+          {this.convertDate(data.date, data.date_to)}
+          {participantLeft <= 0 ? <button className="btn btn-primary float-right disabled">Habis</button> : <button className="btn btn-primary float-right" onClick={() => this.selectedDate(data)}>Pilih</button>}
           <ul className="list-unstyled">
             {data.times.map(time => {
-              return <li key={time.id_activity_time}>{this.convertTime(time.time_start, time.time_end)}</li>
+              return <li key={time.id_activity_time}>{this.convertTime(time.day, time.time_start, time.time_end, activity.duration)}</li>
             })}
           </ul>
           <p className={`small ${participantLeft < warningSlot ? 'text-danger' : ''}`}>Sisa Stock: {data.participant_left}</p>
@@ -104,9 +158,7 @@ class DetailsActivity extends PureComponent {
   }
 
   render () {
-    const { activity } = this.props.details
-
-    if (!activity) { return (<div>loading...</div>) }
+    if (!this.props.details.activity) { return (<div>loading...</div>) }
     return (
       <div>
         <div className="content activity-details">
@@ -116,59 +168,61 @@ class DetailsActivity extends PureComponent {
           <div className="row">
             <div className="col-12 col-lg-5">
               <div className="header-content">
-                <h3>{activity.activity_name}</h3>
-                <p>oleh <span className="font-blue">{activity.host_name}</span></p>
+                <h3>{this.state.data.activity_name}</h3>
+                <p>oleh <span className="font-blue">{this.state.data.host_name}</span></p>
               </div>
               <div className="body-content">
                 <p className="header-list">Detil Kegiatan</p>
-                <p className="font-grey">{activity.description}</p>
+                <p className="font-grey">{this.state.data.description}</p>
               </div>
               <div className="body-content">
-                <p className="header-list">Siapa {activity.host_name}?</p>
-                <p className="font-grey">{activity.host_profile}</p>
+                <p className="header-list">Siapa {this.state.data.host_name}?</p>
+                <p className="font-grey">{this.state.data.host_profile}</p>
               </div>
               <div className="body-content">
                 <p className="header-list">Apa yang akan disediakan?</p>
-                <p className="font-grey">{activity.provide}</p>
+                <p className="font-grey">{this.state.data.provide}</p>
               </div>
               <div className="body-content">
                 <p className="header-list">Dimana lokasi kegiatan?</p>
-                <p className="font-grey">{activity.location}</p>
+                <p className="font-grey">{this.state.data.location}</p>
               </div>
               <div className="body-content">
                 <p className="header-list">Itinerary</p>
-                <p className="font-grey">{activity.itinerary}</p>
+                <p className="font-grey">{this.state.data.itinerary}</p>
               </div>
             </div>
             <div className="col-lg-2"></div>
             <div className="col-12 col-lg-5">
-              <img className="img-fluid" src="/src/assets/img/2.png" style={{ 'marginBottom': '30px' }} alt="" />
-              <div className="row">
-                <div className="col-4">
-                  <img className="img-fluid" src="/src/assets/img/2.png" alt="" />
-                </div>
-                <div className="col-4">
-                  <img className="img-fluid" src="/src/assets/img/2.png" alt="" />
-                </div>
-                <div className="col-4">
-                  <img className="img-fluid" src="/src/assets/img/2.png" alt="" />
+              <div className="image-content">
+                <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
+                <div className="row">
+                  <div className="col-4">
+                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto}/>
+                  </div>
+                  <div className="col-4">
+                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto}/>
+                  </div>
+                  <div className="col-4">
+                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto}/>
+                  </div>
                 </div>
               </div>
               <div className="order-content">
                 <div className="select-date">
                   <p className="float-left">Silahkan pilih tanggal</p>
-                  <button className="btn btn-primary float-right" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date) }</button>
+                  <button className="btn btn-primary float-right" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to) }</button>
                   <div className="clearfix"></div>
                 </div>
                 <div className="quantity">
-                  <p className="float-left">IDR {activity.price}</p>
+                  <p className="float-left">IDR {this.convertPrice()}</p>
                   <input type="text" className="form-control float-right" placeholder="QTY" onChange={this.handleChange}/>
                   <div className="clearfix"></div>
                 </div>
               </div>
               <small>{this.state.required}</small>
               <div className="slot-content">
-                <small className="float-left" style={{ 'paddingTop': '10px' }}>Slot Maksimal 10 orang, sekarang tersisa </small>
+                <small className={`float-left ${this.state.over ? 'text-danger' : ''}`} style={{ 'paddingTop': '10px' }}>{this.state.slot}</small>
                 <button className="float-right btn btn-primary" onClick={this.checkOut}>Next</button>
                 <div className="clearfix"></div>
               </div>
@@ -187,7 +241,7 @@ class DetailsActivity extends PureComponent {
             </div>
           </div>
         </div>
-        <Modal ref={e => this.modal = e} params={{ id: 2, activity, date: this.state.date, quantity: this.state.quantity }}/>
+        <Modal ref={e => this.modal = e} params={{ id: 2, activity: this.state.data, date: this.state.date, quantity: this.state.quantity }}/>
       </div>
     )
   }
@@ -197,11 +251,4 @@ DetailsActivity.contextTypes = {
   router: PropTypes.object
 }
 
-function mapStateToProps (state) {
-  return {
-    details: state.activity.details,
-    time: state.activity.time
-  }
-}
-
-export default connect(mapStateToProps, { getActivity, selectedActivity })(DetailsActivity)
+export default connect((state) => ({ details: state.activity.details }), { getActivity, selectedActivity })(DetailsActivity)

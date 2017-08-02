@@ -6,11 +6,12 @@ import {
   PAYMENT_CONFIRMATION
 } from './const'
 
-const token = localStorage.getItem('token')
-axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
 export async function getAllTransaction () {
-  const request = await axios.get('/transaction')
+  const request = await axios.get('/transaction', {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
 
   return {
     type: GET_ALL_TRANSACTION,
@@ -24,7 +25,12 @@ export async function createNewTransaction (quantity, date, idActivity) {
       quantity,
       date,
       id_activity: idActivity
-    })
+    }),
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }
   )
 
   return {
@@ -33,7 +39,12 @@ export async function createNewTransaction (quantity, date, idActivity) {
 }
 
 export async function paymentConfirmation (data) {
-  await axios.post('/transaction/payment', qs.stringify(data))
+  await axios.post('/transaction/payment',
+    qs.stringify(data), {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    })
 
   return {
     type: PAYMENT_CONFIRMATION

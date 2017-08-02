@@ -12,8 +12,7 @@ class Header extends Component {
     super(props)
 
     this.state = {
-      firstName: '',
-      transaction: ''
+      firstName: ''
     }
 
     this.showModal = this.showModal.bind(this)
@@ -60,7 +59,6 @@ class Header extends Component {
           </div>
           <div className="float-right">
             <ul className="nav-right">
-              <li className="nav-item"><Link className="nav-link" to={'/'}>About Us</Link></li>
               {!this.props.transaction
                 ? <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction(0)</Link></li>
                 : <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction({this.getTotalTransaction()})</Link></li>}
@@ -86,4 +84,4 @@ class Header extends Component {
   }
 }
 
-export default connect(state => ({ transaction: state.transaction.data }), { signOut, getAllTransaction })(Header)
+export default connect((state) => ({ transaction: state.transaction.data }), { signOut, getAllTransaction })(Header)

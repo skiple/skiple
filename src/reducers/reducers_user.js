@@ -1,11 +1,11 @@
 import { SIGN_IN } from 'actions/const'
 
-const INITIAL_STATE = { user: {}, signup: {} }
+// const INITIAL_STATE = { user: {} }
 
-export default function (state = INITIAL_STATE, action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case SIGN_IN:
-      return { ...state, user: action.payload }
+      return action.payload.data
   }
   return state
 }

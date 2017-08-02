@@ -31,11 +31,13 @@ class Modal extends Component {
       else if (!this.password.value) this.setState({ passLogin: 'The password field is required' })
       else {
         this.props.signIn(this.email.value, this.password.value)
-          .catch((error) => {
+          .then(() => {
+            window.location.reload()
+          }).catch((error) => {
             if (error.response.status === 404) {
               this.setState({ required: error.response.data.message })
             }
-          }).then(() => window.location.reload())
+          })
       }
     } else {
       if (!this.email.value && !this.password.value) this.setState({ emailLogin: 'The email field is required', passLogin: 'The password field is required' })
@@ -47,6 +49,10 @@ class Modal extends Component {
             $('.myModalAuth').modal('hide')
             this.props.selectedActivity(this.props.params.activity, this.props.params.date, this.props.params.quantity)
             this.context.router.push('/checkout')
+          }).catch((error) => {
+            if (error.response.status === 404) {
+              this.setState({ required: error.response.data.message })
+            }
           })
       }
     }
