@@ -7,6 +7,7 @@ import TransactionPage from 'container/TransactionPage'
 import DetailsActivityPage from 'container/DetailsActivityPage'
 import CheckOutPage from 'container/CheckOutPage'
 import ConfirmationPage from 'container/ConfirmationPage'
+import EditProfilePage from 'container/EditProfilePage'
 
 const Routes = (props) => (
   <Router {...props}>
@@ -16,6 +17,7 @@ const Routes = (props) => (
       <Route path="/checkout" components={CheckOutPage} />
       <Route path="/activity/:id" components={DetailsActivityPage}/>
       <Route path="/confirmation/:id" components={ConfirmationPage}/>
+      <Route path="/editprofile" components={EditProfilePage}/>
     </Route>
   </Router>
 )

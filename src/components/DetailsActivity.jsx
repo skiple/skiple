@@ -81,14 +81,18 @@ class DetailsActivity extends Component {
     return Number(price).toLocaleString('de')
   }
 
-  convertDate (startDate, endDate) {
+  convertDate (startDate, endDate, duration) {
     let startDateSplit = startDate.split(' ')
     let newStartDate = startDateSplit[0].split('-')
 
     let endDateSplit = endDate.split(' ')
     let newEndDate = endDateSplit[0].split('-')
 
-    return `${newStartDate[2]} ${arrOfMount[newStartDate[1]]} ${newStartDate[0]} - ${newEndDate[2]} ${arrOfMount[newEndDate[1]]} ${newEndDate[0]}`
+    if (duration === 1) {
+      return `${newStartDate[2]} ${arrOfMount[newStartDate[1]]} ${newStartDate[0]}`
+    } else {
+      return `${newStartDate[2]} ${arrOfMount[newStartDate[1]]} ${newStartDate[0]} - ${newEndDate[2]} ${arrOfMount[newEndDate[1]]} ${newEndDate[0]}`
+    }
   }
 
   convertTime (day, startTime, endTime, duration) {
@@ -106,15 +110,21 @@ class DetailsActivity extends Component {
   }
 
   checkOut () {
+    console.log(this.state.quantity.length)
     if (!this.state.date && !this.state.quantity) {
-      this.setState({ required: 'pilih tanggal dan input quantity' })
+      this.setState({ required: 'Pilih tanggal dan input quantity' })
     } else if (!this.state.date) {
-      this.setState({ required: 'pilih tanggal' })
+      this.setState({ required: 'Pilih tanggal' })
     } else if (!this.state.quantity) {
-      this.setState({ required: 'input quality' })
+      this.setState({ required: 'Input quantity' })
     } else {
       if (!localStorage.getItem('token')) {
-        if (this.state.quantity > this.state.date.participant_left) {
+        if (this.state.quantity.length !== 0) {
+          this.setState({
+            over: !this.state.over,
+            slot: `Masukan quantity minimal 1`
+          })
+        } else if (this.state.quantity > this.state.date.participant_left) {
           this.setState({
             over: !this.state.over,
             slot: `Melebihi kapasitas! slot yang tersedia hanya ${this.state.date.participant_left}`
@@ -123,7 +133,12 @@ class DetailsActivity extends Component {
           $(findDOMNode(this.modal)).modal('show')
         }
       } else {
-        if (this.state.quantity > this.state.date.participant_left) {
+        if (this.state.quantity.length !== 0) {
+          this.setState({
+            over: !this.state.over,
+            slot: `Masukan quantity minimal 1`
+          })
+        } else if (this.state.quantity > this.state.date.participant_left) {
           this.setState({
             over: !this.state.over,
             slot: `Melebihi kapasitas! slot yang tersedia hanya ${this.state.date.participant_left}`
@@ -144,7 +159,7 @@ class DetailsActivity extends Component {
       let participantLeft = data.participant_left
       return (
         <li className="mb-4" key={data.id_activity_date}>
-          {this.convertDate(data.date, data.date_to)}
+          {this.convertDate(data.date, data.date_to, activity.duration)}
           {participantLeft <= 0 ? <button className="btn btn-primary float-right disabled">Habis</button> : <button className="btn btn-primary float-right" onClick={() => this.selectedDate(data)}>Pilih</button>}
           <ul className="list-unstyled">
             {data.times.map(time => {
@@ -211,7 +226,7 @@ class DetailsActivity extends Component {
               <div className="order-content">
                 <div className="select-date">
                   <p className="float-left">Silahkan pilih tanggal</p>
-                  <button className="btn btn-primary float-right" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to) }</button>
+                  <button className="btn btn-primary float-right" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration) }</button>
                   <div className="clearfix"></div>
                 </div>
                 <div className="quantity">

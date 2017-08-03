@@ -69,7 +69,7 @@ class Header extends Component {
                     {this.state.firstName}
                   </a>
                   <div className="dropdown-menu">
-                    <Link className="dropdown-item" to={''}>Edit profile</Link>
+                    <Link className="dropdown-item" to={'/editprofile'}>Edit profile</Link>
                     <Link className="dropdown-item" to={''} onClick={this.handleSignOut}>Log out</Link>
                   </div>
                 </li>}
