@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Header from 'components/Header'
+import Footer from 'components/Footer'
 import CheckOut from 'components/CheckOut'
 
 class CheckOutPage extends Component {
@@ -9,6 +10,7 @@ class CheckOutPage extends Component {
       <div>
         <Header />
         <CheckOut />
+        <Footer />
       </div>
     )
   }

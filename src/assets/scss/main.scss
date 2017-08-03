@@ -57,23 +57,53 @@ input::-webkit-input-placeholder .form-control{
 }
 
 // HEADER
+.navbar-toggler{
+  margin-top: 70px;
+}
+
+.navbar {
+  padding: 0;
+}
+
 .navs{
   margin-top: 50px;
   &-border{
     margin-top: 40px;
     border-bottom: 1px solid $lightGrey;
+    @media (max-width: 576px) {
+      border: none;
+    }
+  }
+  @media (max-width: 576px) {
+    img{
+      margin-left: 70px;
+    }
   }
 }
 
 .nav-right{
-  display: block;
-  margin-top: 25px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
   cursor: pointer;
+  @media (max-width: 576px){
+    position: relative;
+    display: block;
+    padding-left: 0;
+  } 
   li{
     display: inline-block;
     font-family: $fontreguler;
     font-size: $font-s;
     letter-spacing: 2px;
+    @media (max-width: 576px){
+      display: block;
+      margin-bottom: 10px;
+      &:nth-child(1) {
+        margin-top: 70px;
+        display: block;
+      }
+    } 
     &:hover{
       color: $lightBlue;
     }

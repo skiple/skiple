@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Header from 'components/Header'
+import Footer from 'components/Footer'
 import ListActivity from 'components/ListActivity'
 
 class MainPage extends Component {
@@ -9,6 +10,7 @@ class MainPage extends Component {
       <div>
         <Header />
         <ListActivity />
+        <Footer />
       </div>
     )
   }

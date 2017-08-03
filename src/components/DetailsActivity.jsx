@@ -110,7 +110,6 @@ class DetailsActivity extends Component {
   }
 
   checkOut () {
-    console.log(this.state.quantity.length)
     if (!this.state.date && !this.state.quantity) {
       this.setState({ required: 'Pilih tanggal dan input quantity' })
     } else if (!this.state.date) {
@@ -119,7 +118,8 @@ class DetailsActivity extends Component {
       this.setState({ required: 'Input quantity' })
     } else {
       if (!localStorage.getItem('token')) {
-        if (this.state.quantity.length !== 0) {
+        if (this.state.quantity <= 0) {
+          console.log('berhasil')
           this.setState({
             over: !this.state.over,
             slot: `Masukan quantity minimal 1`
@@ -133,7 +133,7 @@ class DetailsActivity extends Component {
           $(findDOMNode(this.modal)).modal('show')
         }
       } else {
-        if (this.state.quantity.length !== 0) {
+        if (this.state.quantity <= 0) {
           this.setState({
             over: !this.state.over,
             slot: `Masukan quantity minimal 1`

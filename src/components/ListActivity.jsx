@@ -13,7 +13,7 @@ class ListActivity extends Component {
 
     return activities.map((data) => {
       return (
-        <div className="col-4 col-img" key={data.id_activity}>
+        <div className="col-lg-4 col-img" key={data.id_activity}>
           <Link to={`/activity/${data.id_activity}`}><img className="img-fluid" src={data.photo1} width="300px" alt="" /></Link>
           <div className="caption">
             <h3>{data.activity_name}</h3>
