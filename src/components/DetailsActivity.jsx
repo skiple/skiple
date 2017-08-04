@@ -6,19 +6,33 @@ import { getActivity, selectedActivity } from 'actions/Activity'
 
 import Modal from 'components/Modal'
 
+const arrOfMounts = []
+arrOfMounts['01'] = 'Januari'
+arrOfMounts['02'] = 'Februari'
+arrOfMounts['03'] = 'Maret'
+arrOfMounts['04'] = 'April'
+arrOfMounts['05'] = 'Mei'
+arrOfMounts['06'] = 'Juni'
+arrOfMounts['07'] = 'Juli'
+arrOfMounts['08'] = 'Agustus'
+arrOfMounts['09'] = 'September'
+arrOfMounts['10'] = 'Oktober'
+arrOfMounts['11'] = 'November'
+arrOfMounts['12'] = 'Desember'
+
 const arrOfMount = []
-arrOfMount['01'] = 'Januari'
-arrOfMount['02'] = 'Februari'
-arrOfMount['03'] = 'Maret'
-arrOfMount['04'] = 'April'
+arrOfMount['01'] = 'Jan'
+arrOfMount['02'] = 'Feb'
+arrOfMount['03'] = 'Mar'
+arrOfMount['04'] = 'Apr'
 arrOfMount['05'] = 'Mei'
-arrOfMount['06'] = 'Juni'
-arrOfMount['07'] = 'Juli'
-arrOfMount['08'] = 'Agustus'
-arrOfMount['09'] = 'September'
-arrOfMount['10'] = 'Oktober'
-arrOfMount['11'] = 'November'
-arrOfMount['12'] = 'Desember'
+arrOfMount['07'] = 'Jul'
+arrOfMount['08'] = 'Ags'
+arrOfMount['09'] = 'Sep'
+arrOfMount['06'] = 'Jun'
+arrOfMount['10'] = 'Okt'
+arrOfMount['11'] = 'Nov'
+arrOfMount['12'] = 'Des'
 
 class DetailsActivity extends Component {
   constructor (props) {
@@ -81,6 +95,20 @@ class DetailsActivity extends Component {
     return Number(price).toLocaleString('de')
   }
 
+  convertDateButton (startDate, endDate, duration) {
+    let startDateSplit = startDate.split(' ')
+    let newStartDate = startDateSplit[0].split('-')
+
+    let endDateSplit = endDate.split(' ')
+    let newEndDate = endDateSplit[0].split('-')
+
+    if (duration === 1) {
+      return `${newStartDate[2]} ${arrOfMounts[newStartDate[1]]} ${newStartDate[0]}`
+    } else {
+      return `${newStartDate[2]} ${arrOfMount[newStartDate[1]]} - ${newEndDate[2]} ${arrOfMount[newEndDate[1]]} ${newEndDate[0]}`
+    }
+  }
+
   convertDate (startDate, endDate, duration) {
     let startDateSplit = startDate.split(' ')
     let newStartDate = startDateSplit[0].split('-')
@@ -89,9 +117,9 @@ class DetailsActivity extends Component {
     let newEndDate = endDateSplit[0].split('-')
 
     if (duration === 1) {
-      return `${newStartDate[2]} ${arrOfMount[newStartDate[1]]} ${newStartDate[0]}`
+      return `${newStartDate[2]} ${arrOfMounts[newStartDate[1]]} ${newStartDate[0]}`
     } else {
-      return `${newStartDate[2]} ${arrOfMount[newStartDate[1]]} ${newStartDate[0]} - ${newEndDate[2]} ${arrOfMount[newEndDate[1]]} ${newEndDate[0]}`
+      return `${newStartDate[2]} ${arrOfMounts[newStartDate[1]]} ${newStartDate[0]} - ${newEndDate[2]} ${arrOfMounts[newEndDate[1]]} ${newEndDate[0]}`
     }
   }
 
@@ -186,6 +214,20 @@ class DetailsActivity extends Component {
                 <h3>{this.state.data.activity_name}</h3>
                 <p>oleh <span className="font-blue">{this.state.data.host_name}</span></p>
               </div>
+              <div className="image-content img-res">
+                <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
+                <div className="row">
+                  <div className="col-4">
+                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto}/>
+                  </div>
+                  <div className="col-4">
+                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto}/>
+                  </div>
+                  <div className="col-4">
+                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto}/>
+                  </div>
+                </div>
+              </div>
               <div className="body-content">
                 <p className="header-list">Detil Kegiatan</p>
                 <p className="font-grey">{this.state.data.description}</p>
@@ -226,7 +268,8 @@ class DetailsActivity extends Component {
               <div className="order-content">
                 <div className="select-date">
                   <p className="float-left">Silahkan pilih tanggal</p>
-                  <button className="btn btn-primary float-right" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration) }</button>
+                  <button className="btn btn-primary float-right btn-res-tog" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDateButton(this.state.date.date, this.state.date.date_to, this.state.data.duration) }</button>
+                  <button className="btn btn-primary float-right btn-res" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration) }</button>
                   <div className="clearfix"></div>
                 </div>
                 <div className="quantity">
@@ -237,7 +280,7 @@ class DetailsActivity extends Component {
               </div>
               <small>{this.state.required}</small>
               <div className="slot-content">
-                <small className={`float-left ${this.state.over ? 'text-danger' : ''}`} style={{ 'paddingTop': '10px' }}>{this.state.slot}</small>
+                <small className={`float-left ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
                 <button className="float-right btn btn-primary" onClick={this.checkOut}>Next</button>
                 <div className="clearfix"></div>
               </div>

@@ -111,13 +111,13 @@ class Modal extends Component {
                     </form>
                   </div>
                 </div>
-                <div className="float-left">
+                <div className="float-left none-float">
                   <div className="form-check font-grey">
                     <label className="form-check-label"></label>
                     <input type="checkbox" className="form-check-input" />Remember me
                   </div>
                 </div>
-                <div className="float-right">
+                <div className="float-right none-float">
                   <p className="font-grey">Forgot the password?</p>
                 </div>
                 <div className="clearfix"></div>
@@ -177,13 +177,13 @@ class Modal extends Component {
                   </div>
                 </div>
                 <div className="modal-footer font-grey">
-                  <div className="clearfix"></div>
                   <div className="float-left">
                     <p>Already have an account?</p>
                   </div>
                   <div className="float-right">
                     <p onClick={this.changeModal}><span className="font-blue" style={{ 'cursor': 'pointer' }}>Login</span></p>
                   </div>
+                  <div className="clearfix"></div>
                 </div>
               </div>
             </div>

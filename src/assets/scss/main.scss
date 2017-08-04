@@ -12,6 +12,9 @@ h1,h2,h3,h4,h5,h6{
 
 .content{
   margin-top: 90px;
+  @media (max-width: 576px) {
+    margin-top: 60px;
+  }
 }
 
 .font{
@@ -24,6 +27,12 @@ h1,h2,h3,h4,h5,h6{
   &-grey{
     color: $grey;
   }
+  &-reguler{
+    font-family: $fontreguler;
+  }
+  &-bold{
+    font-family: $fontbold;
+  }
 }
 
 input::-webkit-input-placeholder .form-control{
@@ -35,6 +44,7 @@ input::-webkit-input-placeholder .form-control{
 }
 
 .btn-primary {
+  font-size: $font-xs;
   background-color: $lightBlue;
   border-color: $lightBlue;
   cursor: pointer;
@@ -57,12 +67,25 @@ input::-webkit-input-placeholder .form-control{
 }
 
 // HEADER
-.navbar-toggler{
-  margin-top: 70px;
+.navbar-light .navbar-toggler{
+  border: none;
+}
+
+.navbar-toggler-right{
+  padding: 0;
+  padding-top: 15px;
+}
+
+.navbar-toggler-right{
+  right: 0;
 }
 
 .navbar {
   padding: 0;
+}
+
+.navbar-toggler-icon:hover{
+  cursor: pointer;
 }
 
 .navs{
@@ -71,12 +94,15 @@ input::-webkit-input-placeholder .form-control{
     margin-top: 40px;
     border-bottom: 1px solid $lightGrey;
     @media (max-width: 576px) {
-      border: none;
+      margin: auto;
+      margin-top: 20px;
     }
   }
   @media (max-width: 576px) {
+    margin-top: 20px;
     img{
-      margin-left: 70px;
+      margin-left: 0px;
+      width: 150px;
     }
   }
 }
@@ -129,6 +155,15 @@ input::-webkit-input-placeholder .form-control{
 
 .col-img{
   padding-left: 39px;
+  @media (max-width: 576px){
+    padding-left: 15px;
+  }
+  img{
+    width: 300px;
+    @media (max-width: 576px){
+      width: 100%;
+    }
+  }
 }
 
 // ACTIVITY DETAILS
@@ -159,11 +194,49 @@ input::-webkit-input-placeholder .form-control{
 
 .image-content{
   cursor: pointer;
+  @media (max-width: 576px){
+    display: none;
+  }
+}
+
+.img-res{
+  display: none;
+  @media (max-width: 576px){
+    display: block;
+    margin-bottom: 50px;
+  }
 }
 
 .order-content{
-  margin-top: 30px;
   font-family: $fontbold;
+  .btn-res-tog{
+    display: none;
+    @media (max-width: 576px) {
+      display: block;
+    }
+  }
+  .btn-res{
+    display: block;
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+}
+
+.select-date{
+  margin-top: 50px;
+  @media (max-width: 576px) {
+    margin: 0;
+  }
+  button{
+    padding: .5rem 1.1rem;
+  }
+  p{
+    @media (max-width: 576px) {
+      margin-top: 5px;
+      font-size: $font-xs;
+    }
+  }
 }
 
 .quantity{
@@ -180,21 +253,62 @@ input::-webkit-input-placeholder .form-control{
 
 .slot-content{
   margin-top: 30px;
+  small{
+    padding-top: 10px;
+    @media (max-width: 576px) {
+      padding: 0;
+      width: 70%;
+    }
+  }
   button{
     width: 90px;
   }
 }
 
 // CHECKOUT
+.checkout{
+  display: block;
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.checkout-res{
+  font-size: $font-xs;
+  display: none;
+  @media (max-width: 576px) {
+    display: block;
+  }
+}
 
 // TRANSACTION
 .transaction{
   h1{
     margin-bottom: 2rem;
+    @media (max-width: 576px) {
+      font-size: $font-ml;
+    }
   }
   a{
     color: $white;
     text-decoration: none;
+  }
+}
+
+.table-res {
+  display: none;
+  &-border{
+    margin-bottom: 50px;
+    border-bottom: 1px solid $lightGrey;
+  }
+  @media (max-width: 576px) {
+    display: block;
+  }
+}
+
+.table{
+  @media (max-width: 576px) {
+    display: none;
   }
 }
 
@@ -230,9 +344,23 @@ input::-webkit-input-placeholder .form-control{
 .cs-modal{
   &-login{
     top: 15%;
+    @media (max-width: 576px) {
+      .none-float{
+        float:none !important;
+      }
+      font-size: $font-xs;
+      top: 0%;
+    }
   }
   &-register{
-    top:5%
+    top:5%;
+    @media (max-width: 576px) {
+      .none-float{
+        float:none !important;
+      }
+      font-size: $font-xs;
+      top: 0%;
+    }
   }
 }
 

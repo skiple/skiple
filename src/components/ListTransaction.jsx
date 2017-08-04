@@ -80,6 +80,33 @@ class Transaction extends Component {
     }
   }
 
+  renderListTransactionResponsive () {
+    const { transaction } = this.props
+
+    if (transaction.transactions.length === 0) {
+      return (
+        <p className="text-center">Tidak ada transaksi</p>
+      )
+    } else {
+      return transaction.transactions.map(data => {
+        return (
+          <div key={data.id_transaction}>
+            <div>
+              ID Transaksi <span className="font-blue">{data.id_transaction}</span><br />
+              {this.convertDate(data.created_at)}
+            </div>
+            <p>{data.activity.activity_name}</p>
+            <p>IDR {data.total_price}</p>
+            <p className="float-left" style={{ 'paddingTop': '5px', 'marginBottom': '2rem' }}>{this.convertStatus(data.status)}</p>
+            <div className="float-right">{this.renderButton(data.status, data.id_transaction)}</div>
+            <div className="clearfix"></div>
+            <div className="table-res-border"></div>
+          </div>
+        )
+      })
+    }
+  }
+
   render () {
     if (!this.props.transaction) return (<div>Loading....</div>)
     return (
@@ -100,6 +127,9 @@ class Transaction extends Component {
                 {this.renderListTransaction()}
               </tbody>
             </table>
+            <div className="table-res">
+              {this.renderListTransactionResponsive()}
+            </div>
           </div>
         </div>
       </div>
