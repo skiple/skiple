@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 
 import Header from 'components/Header'
-import Footer from 'components/Footer'
 import CheckOut from 'components/CheckOut'
 
 class CheckOutPage extends Component {
   render () {
     return (
-      <div>
+      <div className="container">
         <Header />
         <CheckOut />
-        <Footer />
       </div>
     )
   }

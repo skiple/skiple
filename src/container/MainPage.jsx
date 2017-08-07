@@ -8,9 +8,11 @@ class MainPage extends Component {
   render () {
     return (
       <div>
-        <Header />
-        <ListActivity />
-        <Footer />
+        <div className="container">
+          <Header />
+          <ListActivity />
+        </div>
+        <Footer/>
       </div>
     )
   }

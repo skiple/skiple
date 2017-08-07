@@ -5,6 +5,10 @@ import { signIn, signUp } from 'actions/User'
 import { selectedActivity } from 'actions/Activity'
 
 class Modal extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor (props) {
     super(props)
 
@@ -152,25 +156,25 @@ class Modal extends Component {
                     <p className="text-danger">{this.state.required}</p>
                     <form>
                       <div className="form-group">
-                        <input type="text" className="form-control form-control-lg form-custom" id="email" placeholder="First Name" ref={e => this.firstName = e} />
+                        <input type="text" className="form-control form-control-lg form-custom" id="firstName" placeholder="First Name" ref={e => this.firstName = e} />
                       </div>
                       <div className="form-group">
-                        <input type="text" className="form-control form-control-lg form-custom" id="password" placeholder="Last Name" ref={e => this.lastName = e} />
+                        <input type="text" className="form-control form-control-lg form-custom" id="lastName" placeholder="Last Name" ref={e => this.lastName = e} />
                       </div>
                       <div className="form-group">
-                        <input type="email" className="form-control form-control-lg form-custom" id="password" placeholder="Email" ref={e => this.email = e} />
+                        <input type="email" className="form-control form-control-lg form-custom" id="Email" placeholder="Email" ref={e => this.email = e} />
                       </div>
                       <div className="form-group">
-                        <input type="number" className="form-control form-control-lg form-custom" id="password" placeholder="Phone Number" ref={e => this.phone = e} />
+                        <input type="number" className="form-control form-control-lg form-custom" id="phone" placeholder="Phone Number" ref={e => this.phone = e} />
                       </div>
                       <div className="form-group">
-                        <input type="date" className="form-control form-control-lg form-custom" id="password" placeholder="Birthday" ref={e => this.birthday = e} />
+                        <input type="text" className="form-control form-control-lg form-custom" id="birthday" placeholder="Birthday" onFocus={() => this.birthday.type = 'date'} onBlur={() => this.birthday.type = 'date'} ref={e => this.birthday = e} />
                       </div>
                       <div className="form-group">
                         <input type="password" className="form-control form-control-lg form-custom" id="password" placeholder="Password" ref={e => this.password = e} />
                       </div>
                       <div className="form-group">
-                        <input type="password" className="form-control form-control-lg form-custom" id="password" placeholder="Confirmation Password" ref={e => this.confirmPassword = e} />
+                        <input type="password" className="form-control form-control-lg form-custom" id="confirmPassword" placeholder="Confirmation Password" ref={e => this.confirmPassword = e} />
                       </div>
                       <button type="button" className="btn btn-lg btn-primary btn-block form-custom" onClick={this.signUp}>Sign up</button>
                     </form>
@@ -192,10 +196,6 @@ class Modal extends Component {
       )
     }
   }
-}
-
-Modal.contextTypes = {
-  router: PropTypes.object
 }
 
 export default connect(null, { signIn, signUp, selectedActivity })(Modal)

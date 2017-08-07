@@ -35,6 +35,10 @@ arrOfMount['11'] = 'Nov'
 arrOfMount['12'] = 'Des'
 
 class DetailsActivity extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor (props) {
     super(props)
 
@@ -218,13 +222,13 @@ class DetailsActivity extends Component {
                 <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
                 <div className="row">
                   <div className="col-4">
-                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto}/>
+                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                   <div className="col-4">
-                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto}/>
+                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                   <div className="col-4">
-                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto}/>
+                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                 </div>
               </div>
@@ -255,33 +259,34 @@ class DetailsActivity extends Component {
                 <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
                 <div className="row">
                   <div className="col-4">
-                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto}/>
+                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                   <div className="col-4">
-                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto}/>
+                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                   <div className="col-4">
-                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto}/>
+                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                 </div>
               </div>
               <div className="order-content">
                 <div className="select-date">
                   <p className="float-left">Silahkan pilih tanggal</p>
-                  <button className="btn btn-primary float-right btn-res-tog" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDateButton(this.state.date.date, this.state.date.date_to, this.state.data.duration) }</button>
-                  <button className="btn btn-primary float-right btn-res" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration) }</button>
+                  <button className="btn btn-primary float-right btn-res-tog" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDateButton(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button>
+                  <button className="btn btn-primary float-right btn-res" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button>
                   <div className="clearfix"></div>
                 </div>
                 <div className="quantity">
                   <p className="float-left">IDR {this.convertPrice()}</p>
-                  <input type="text" className="form-control float-right" placeholder="QTY" onChange={this.handleChange}/>
+                  <input type="text" className="form-control float-right" placeholder="QTY" onChange={this.handleChange} />
                   <div className="clearfix"></div>
                 </div>
               </div>
-              <small>{this.state.required}</small>
+              <small className="text-danger">{this.state.required}</small>
               <div className="slot-content">
-                <small className={`float-left ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
-                <button className="float-right btn btn-primary" onClick={this.checkOut}>Next</button>
+                <small className={`float-left over ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
+                <button className="btn btn-primary float-right" onClick={this.checkOut}>Next</button>
+                <small className={`float-left over-res ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
                 <div className="clearfix"></div>
               </div>
             </div>
@@ -299,14 +304,10 @@ class DetailsActivity extends Component {
             </div>
           </div>
         </div>
-        <Modal ref={e => this.modal = e} params={{ id: 2, activity: this.state.data, date: this.state.date, quantity: this.state.quantity }}/>
+        <Modal ref={e => this.modal = e} params={{ id: 2, activity: this.state.data, date: this.state.date, quantity: this.state.quantity }} />
       </div>
     )
   }
-}
-
-DetailsActivity.contextTypes = {
-  router: PropTypes.object
 }
 
 export default connect((state) => ({ details: state.activity.details }), { getActivity, selectedActivity })(DetailsActivity)

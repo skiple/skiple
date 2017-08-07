@@ -5,7 +5,7 @@ class EditProfile extends Component {
     return (
       <div className="content confirmation">
         <div className="row">
-          <div className="col-6">
+          <div className="col-12 col-lg-6">
             <h2>Edit Profile</h2>
             <form>
               <div className="form-group">
