@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 
 class EditProfile extends Component {
   render () {
@@ -10,22 +11,22 @@ class EditProfile extends Component {
             <form>
               <div className="form-group">
                 <label htmlFor="formNama">First Name</label>
-                <input type="text" className="form-control" id="formNama" ref={e => this.name = e} />
+                <input type="text" className="form-control" id="firstName" ref={e => this.firstName = e} />
               </div>
               <div className="form-group">
                 <label htmlFor="formNomorHp">Last Name</label>
-                <input type="text" className="form-control" id="formNomorHp" ref={e => this.nomorHp = e} />
+                <input type="text" className="form-control" id="lastName" ref={e => this.lastName = e} />
               </div>
               <div className="form-group">
                 <label htmlFor="formJumlahTransfer">Email Address</label>
-                <input type="text" className="form-control" id="formJumlahTransfer" ref={e => this.amount = e} />
+                <input type="text" className="form-control" id="email" ref={e => this.email = e} />
               </div>
               <div className="form-group">
-                <input type="date" className="form-control" id="password" placeholder="Birthday" />
+                <input type="text" className="form-control" id="birthday" placeholder="Birthday" onFocus={() => this.birthday.type = 'date'} onBlur={() => this.birthday.type = 'date'} ref={e => this.birthday = e} />
               </div>
             </form>
             <button type="submit" className="btn btn-primary float-right">Save</button>
-            <button type="submit" className="btn btn-primary float-right" style={{ 'marginRight': '20px' }}>Edit Password</button>
+            <Link to={'/editpassword'} className="btn btn-primary float-right" style={{ 'marginRight': '20px', 'color': '#fff' }}>Edit Password</Link>
           </div>
         </div>
       </div>

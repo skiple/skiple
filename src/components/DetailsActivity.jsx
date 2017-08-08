@@ -278,7 +278,29 @@ class DetailsActivity extends Component {
                 </div>
                 <div className="quantity">
                   <p className="float-left">IDR {this.convertPrice()}</p>
-                  <input type="text" className="form-control float-right" placeholder="QTY" onChange={this.handleChange} />
+                  <select className="form-control float-right form-custom" onChange={this.handleChange}>
+                    <option>-- org</option>
+                    <option value="1">1 org</option>
+                    <option value="2">2 org</option>
+                    <option value="3">3 org</option>
+                    <option value="4">4 org</option>
+                    <option value="5">5 org</option>
+                    <option value="6">6 org</option>
+                    <option value="7">7 org</option>
+                    <option value="8">8 org</option>
+                    <option value="9">9 org</option>
+                    <option value="10">10 org</option>
+                    <option value="11">11 org</option>
+                    <option value="12">12 org</option>
+                    <option value="13">13 org</option>
+                    <option value="14">14 org</option>
+                    <option value="15">15 org</option>
+                    <option value="16">16 org</option>
+                    <option value="17">17 org</option>
+                    <option value="18">18 org</option>
+                    <option value="19">19 org</option>
+                    <option value="20">20 org</option>
+                  </select>
                   <div className="clearfix"></div>
                 </div>
               </div>
