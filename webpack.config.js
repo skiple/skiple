@@ -8,7 +8,7 @@ module.exports = {
       'babel-polyfill',
       './src/index.js'
     ],
-    vendor: ['jquery', 'tether', 'bootstrap']
+    vendor: ['jquery', 'popper.js', 'bootstrap']
   },
   output: {
     path: __dirname,
@@ -60,9 +60,7 @@ module.exports = {
       allChunks: true
     }),
     new webpack.ProvidePlugin({
-      tether: 'tether',
-      Tether: 'tether',
-      'window.Tether': 'tether',
+      Popper: 'popper.js',
       'window.jQuery': 'jquery',
       $: 'jquery',
       jQuery: 'jquery',

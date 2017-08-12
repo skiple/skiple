@@ -53,11 +53,11 @@ class Header extends Component {
   render () {
     return (
       <div>
-        <nav className="navs navbar navbar-toggleable-md navbar-light">
-          <p className="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <nav className="navs navbar navbar-expand-sm navbar-light">
+          <Link to={'/'}><img src="/src/assets/img/logo.png" width="230px" alt="" /></Link>
+          <p className="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </p>
-          <Link to={'/'}><img src="/src/assets/img/logo.png" width="230px" alt="" /></Link>
           <div className="collapse navbar-collapse text-center float-right" id="navbarSupportedContent">
             <ul className="nav-right">
               {!this.props.transaction
