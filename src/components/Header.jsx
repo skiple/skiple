@@ -54,17 +54,17 @@ class Header extends Component {
     return (
       <div>
         <nav className="navs navbar navbar-expand-sm navbar-light">
-          <Link to={'/'}><img src="/src/assets/img/logo.png" width="230px" alt="" /></Link>
+          <Link to={'/'} className="logo" ><img src="/src/assets/img/unicle-logo.png" width="150px" alt="" /></Link>
           <p className="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </p>
-          <div className="collapse navbar-collapse text-center float-right" id="navbarSupportedContent">
+          <div className="collapse navbar-collapse text-center" id="navbarSupportedContent">
             <ul className="nav-right">
               {!this.props.transaction
-                ? <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction(0)</Link></li>
-                : <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction({this.getTotalTransaction()})</Link></li>}
+                ? <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction (0)</Link></li>
+                : <li className="nav-item"><Link className="nav-link" to={'/transaction'} activeClassName="active">Transaction ({this.getTotalTransaction()})</Link></li>}
               {!this.state.firstName
-                ? <li className="nav-item nav-link" onClick={this.showModal}>Log In</li>
+                ? <li className="nav-item nav-link" onClick={this.showModal}>Sign in / Sign Up</li>
                 : <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {this.state.firstName}
@@ -79,7 +79,6 @@ class Header extends Component {
           <div className="clearfix"></div>
           <Modal ref={e => this.modal = e} params={{ id: 1 }}/>
         </nav>
-        <div className="navs-border"></div>
       </div>
     )
   }

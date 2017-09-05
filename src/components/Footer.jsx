@@ -5,6 +5,7 @@ class Footer extends Component {
     return (
       <div className="footer">
         <div className="container">
+          <div style={{ borderBottom: '1px solid rgba(0,0,0,0.1)', marginBottom: '10px' }}></div>
           <div className="float-left">
             <span>&copy; 2017 Rentuff. All Rights Reserved</span>
           </div>

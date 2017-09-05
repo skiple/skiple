@@ -29,6 +29,8 @@ class ListActivity extends Component {
     if (!this.props.activity.activities) { return (<div>Loading....</div>) }
     return (
       <div className="content">
+        <h5>Upcoming Unique Activities</h5>
+        <div className="navs-border"></div>
         <div className="row">
           {this.renderListActivity()}
         </div>
