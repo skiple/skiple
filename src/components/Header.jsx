@@ -54,7 +54,7 @@ class Header extends Component {
     return (
       <div>
         <nav className="navs navbar navbar-expand-sm navbar-light">
-          <Link to={'/'} className="logo" ><img src="/src/assets/img/unicle-logo.png" width="150px" alt="" /></Link>
+          <Link to={'/'} className="logo" ><img src="/src/assets/img/skiple-logo.png" width="150px" alt="" /></Link>
           <p className="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </p>

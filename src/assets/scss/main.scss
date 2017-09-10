@@ -22,6 +22,13 @@ h1,h2,h3,h4,h5,h6{
   }
 }
 
+.upcoming {
+  padding-left: 24px;
+  @media (max-width: 576px) {
+    padding-left: 0px;
+  }
+}
+
 .font{
   &-blue{
     color: $lightBlue;
@@ -240,12 +247,14 @@ input::-webkit-input-placeholder .form-control{
 .order-content{
   font-family: $fontbold;
   .btn-res-tog{
+    font-family: $fontreguler;
     display: none;
     @media (max-width: 576px) {
       display: block;
     }
   }
   .btn-res{
+    font-family: $fontreguler;
     display: block;
     @media (max-width: 576px) {
       display: none;
@@ -277,6 +286,7 @@ input::-webkit-input-placeholder .form-control{
     font-size: $font-m;
   }
   select{
+    font-family: $fontreguler;
     width: 90px;
   }
 }

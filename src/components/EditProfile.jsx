@@ -22,7 +22,9 @@ class EditProfile extends Component {
                 <input type="text" className="form-control" id="email" ref={e => this.email = e} />
               </div>
               <div className="form-group">
-                <input type="text" className="form-control" id="birthday" placeholder="Birthday" onFocus={() => this.birthday.type = 'date'} onBlur={() => this.birthday.type = 'date'} ref={e => this.birthday = e} />
+                <label htmlFor="formJumlahTransfer">Birthday</label>
+                <input type="date" className="form-control" id="birthday" onFocus={() => this.birthday.type = 'date'} onBlur={() => this.birthday.type = 'date'} ref={e => this.birthday = e}/>
+                {/* <input type="text" className="form-control" id="birthday" placeholder="Birthday" onFocus={() => this.birthday.type = 'date'} onBlur={() => this.birthday.type = 'date'} ref={e => this.birthday = e} /> */}
               </div>
             </form>
             <button type="submit" className="btn btn-primary float-right">Save</button>

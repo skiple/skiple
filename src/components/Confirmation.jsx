@@ -35,7 +35,7 @@ class Confirmation extends Component {
           <div className="col-12 text-right mb-4">step 3 of 3</div>
         </div>
         <div className="row">
-          <div className="col-12 co-lg-6">
+          <div className="col-12 col-lg-6">
             <h2>Konfirmasi Pembayaran</h2>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">

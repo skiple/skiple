@@ -7,7 +7,7 @@ class Footer extends Component {
         <div className="container">
           <div style={{ borderBottom: '1px solid rgba(0,0,0,0.1)', marginBottom: '10px' }}></div>
           <div className="float-left">
-            <span>&copy; 2017 Rentuff. All Rights Reserved</span>
+            <span>&copy; 2017 Skiple. All Rights Reserved</span>
           </div>
           <div className="float-right">
           </div>
