@@ -170,8 +170,8 @@ input::-webkit-input-placeholder .form-control{
 
 // FOOTER
 .footer{
-  position: absolute;
-  bottom: 0;
+  // position: absolute;
+  // bottom: 0;
   width: 100%;
   padding: 10px 10px;
   span{
@@ -187,7 +187,16 @@ input::-webkit-input-placeholder .form-control{
   font-family: $fontbold;
   p{
     font-family: $fontreguler;
+    font-size: 11pt;
   }
+  h3{
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+}
+
+.img-list {
+  width: 315px;
 }
 
 .col-img{
@@ -204,14 +213,18 @@ input::-webkit-input-placeholder .form-control{
 }
 
 // ACTIVITY DETAILS
+.activity-details {
+  margin-bottom: 100px;
+}
+
 .header-content{
   margin-bottom: 50px;
   h3{
-    font-size: $font-l;
+    font-size: 24px;
   }
   p{
     font-family: $fontreguler;
-    font-size: $font-s;
+    font-size: 14px;
   }
 }
 
@@ -219,29 +232,34 @@ input::-webkit-input-placeholder .form-control{
   border-bottom: 1px solid $lightGrey;
   margin-bottom: 50px;
   .header-list{
+    margin-top: 30px;
     margin-bottom: 30px;
-    font-size: $font-m;
+    font-size: 16px;
     font-family: $fontbold;
   }
   p{
     margin-bottom: 50px;
-    font-size: $font-s;
+    font-family: $fontreguler;
+    font-size: 14px;
+  }
+}
+
+.body-content-left {
+  .header-list-left {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-family: $fontbold;
+  }
+  p{
+    margin-bottom: 50px;
+    font-family: $fontreguler;
+    font-size: 14px;
   }
 }
 
 .image-content{
   cursor: pointer;
-  @media (max-width: 576px){
-    display: none;
-  }
-}
-
-.img-res{
-  display: none;
-  @media (max-width: 576px){
-    display: block;
-    margin-bottom: 50px;
-  }
 }
 
 .order-content{
@@ -263,24 +281,13 @@ input::-webkit-input-placeholder .form-control{
 }
 
 .select-date{
-  margin-top: 50px;
-  @media (max-width: 576px) {
-    margin: 0;
-  }
+  margin-bottom: 50px;
   button{
     padding: .5rem 1.1rem;
-  }
-  p{
-    @media (max-width: 576px) {
-      margin-top: 5px;
-      font-size: $font-xs;
-    }
   }
 }
 
 .quantity{
-  margin-top: 20px;
-  border-bottom: 1px solid $lightGrey;
   p{
     margin-bottom: 57px;
     font-size: $font-m;
@@ -292,7 +299,7 @@ input::-webkit-input-placeholder .form-control{
 }
 
 .slot-content{
-  margin-top: 48px;
+  margin-top: -25px;
   small{
     padding-top: 10px;
     @media (max-width: 576px) {
@@ -305,6 +312,16 @@ input::-webkit-input-placeholder .form-control{
     @media (max-width: 576px) {
       padding: 12px 16px;
       width: 100%;
+    }
+  }
+  .price {
+    padding-top: 8px;
+    font-size: $font-m;
+    font-family: $fontbold;
+    span {
+      font-family: $fontreguler;
+      font-size: 12px;
+      color: $grey;
     }
   }
 }

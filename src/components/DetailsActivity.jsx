@@ -214,47 +214,6 @@ class DetailsActivity extends Component {
           </div>
           <div className="row">
             <div className="col-12 col-lg-5">
-              <div className="header-content">
-                <h3>{this.state.data.activity_name}</h3>
-                <p>oleh <span className="font-blue">{this.state.data.host_name}</span></p>
-              </div>
-              <div className="image-content img-res">
-                <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
-                <div className="row">
-                  <div className="col-4">
-                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto} />
-                  </div>
-                  <div className="col-4">
-                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto} />
-                  </div>
-                  <div className="col-4">
-                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto} />
-                  </div>
-                </div>
-              </div>
-              <div className="body-content">
-                <p className="header-list">Detil Kegiatan</p>
-                <p className="font-grey">{this.state.data.description}</p>
-              </div>
-              <div className="body-content">
-                <p className="header-list">Siapa {this.state.data.host_name}?</p>
-                <p className="font-grey">{this.state.data.host_profile}</p>
-              </div>
-              <div className="body-content">
-                <p className="header-list">Apa yang akan disediakan?</p>
-                <p className="font-grey">{this.state.data.provide}</p>
-              </div>
-              <div className="body-content">
-                <p className="header-list">Dimana lokasi kegiatan?</p>
-                <p className="font-grey">{this.state.data.location}</p>
-              </div>
-              <div className="body-content">
-                <p className="header-list">Itinerary</p>
-                <p className="font-grey">{this.state.data.itinerary}</p>
-              </div>
-            </div>
-            <div className="col-lg-2"></div>
-            <div className="col-12 col-lg-5">
               <div className="image-content">
                 <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
                 <div className="row">
@@ -269,47 +228,75 @@ class DetailsActivity extends Component {
                   </div>
                 </div>
               </div>
-              <div className="order-content">
-                <div className="select-date">
-                  <p className="float-left">Silahkan pilih tanggal</p>
-                  <button className="btn btn-primary float-right btn-res-tog" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDateButton(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button>
-                  <button className="btn btn-primary float-right btn-res" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button>
-                  <div className="clearfix"></div>
-                </div>
-                <div className="quantity">
-                  <p className="float-left">IDR {this.convertPrice()}</p>
-                  <select className="form-control float-right form-custom" onChange={this.handleChange}>
-                    <option>-- org</option>
-                    <option value="1">1 org</option>
-                    <option value="2">2 org</option>
-                    <option value="3">3 org</option>
-                    <option value="4">4 org</option>
-                    <option value="5">5 org</option>
-                    <option value="6">6 org</option>
-                    <option value="7">7 org</option>
-                    <option value="8">8 org</option>
-                    <option value="9">9 org</option>
-                    <option value="10">10 org</option>
-                    <option value="11">11 org</option>
-                    <option value="12">12 org</option>
-                    <option value="13">13 org</option>
-                    <option value="14">14 org</option>
-                    <option value="15">15 org</option>
-                    <option value="16">16 org</option>
-                    <option value="17">17 org</option>
-                    <option value="18">18 org</option>
-                    <option value="19">19 org</option>
-                    <option value="20">20 org</option>
-                  </select>
-                  <div className="clearfix"></div>
-                </div>
+              <div className="body-content-left">
+                <p className="header-list-left">{this.state.data.host_name}</p>
+                <p className="font-grey">{this.state.data.host_profile}</p>
+              </div>
+            </div>
+            <div className="col-lg-2"></div>
+            <div className="col-12 col-lg-5">
+              <div className="header-content">
+                <h3>{this.state.data.activity_name}</h3>
+                <p>oleh <span className="font-blue">{this.state.data.host_name}</span></p>
+              </div>
+              <div className="select-date">
+                {/* <button className="btn btn-primary float-right btn-res-tog" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDateButton(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button> */}
+                <button className="btn btn-primary btn-res" onClick={this.handleModal}>{!this.state.date ? 'Pilih Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button>
+              </div>
+              <div className="body-content">
+                <p className="header-list">Detil Kegiatan</p>
+                <p className="font-grey">{this.state.data.description}</p>
+              </div>
+              <div className="body-content">
+                <p className="header-list">Apa yang akan disediakan?</p>
+                <p className="font-grey">{this.state.data.provide}</p>
+              </div>
+              <div className="body-content">
+                <p className="header-list">Dimana lokasi kegiatan?</p>
+                <p className="font-grey">{this.state.data.location}</p>
+              </div>
+              <div className="body-content">
+                <p className="header-list">Agenda</p>
+                <p className="font-grey">{this.state.data.itinerary}</p>
               </div>
               <small className="text-danger">{this.state.required}</small>
               <div className="slot-content">
-                <small className={`float-left over ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
-                <button className="btn btn-primary float-right" onClick={this.checkOut}>Next</button>
-                <small className={`float-left over-res ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
-                <div className="clearfix"></div>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <p className="price">IDR {this.convertPrice()} <span>per orang</span></p>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="quantity float-left">
+                      <select className="form-control form-custom" onChange={this.handleChange}>
+                        <option>-- org</option>
+                        <option value="1">1 org</option>
+                        <option value="2">2 org</option>
+                        <option value="3">3 org</option>
+                        <option value="4">4 org</option>
+                        <option value="5">5 org</option>
+                        <option value="6">6 org</option>
+                        <option value="7">7 org</option>
+                        <option value="8">8 org</option>
+                        <option value="9">9 org</option>
+                        <option value="10">10 org</option>
+                        <option value="11">11 org</option>
+                        <option value="12">12 org</option>
+                        <option value="13">13 org</option>
+                        <option value="14">14 org</option>
+                        <option value="15">15 org</option>
+                        <option value="16">16 org</option>
+                        <option value="17">17 org</option>
+                        <option value="18">18 org</option>
+                        <option value="19">19 org</option>
+                        <option value="20">20 org</option>
+                      </select>
+                    </div>
+                    <button className="btn btn-primary float-right" onClick={this.checkOut}>Next</button>
+                    <small className={`over ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
+                    <small className={`over-res ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
+                    <div className="clearfix"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
