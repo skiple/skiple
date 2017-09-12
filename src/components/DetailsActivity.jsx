@@ -210,10 +210,7 @@ class DetailsActivity extends Component {
       <div>
         <div className="content activity-details">
           <div className="row">
-            <div className="col-12 text-right mb-4">step 1 of 3</div>
-          </div>
-          <div className="row">
-            <div className="col-12 col-lg-5">
+            <div className="col-12 col-lg-6">
               <div className="image-content">
                 <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
                 <div className="row">
@@ -233,7 +230,7 @@ class DetailsActivity extends Component {
                 <p className="font-grey">{this.state.data.host_profile}</p>
               </div>
             </div>
-            <div className="col-lg-2"></div>
+            <div className="col-lg-1"></div>
             <div className="col-12 col-lg-5">
               <div className="header-content">
                 <h3>{this.state.data.activity_name}</h3>

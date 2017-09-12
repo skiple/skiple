@@ -56,11 +56,43 @@ class CheckOut extends Component {
 
     return (
       <div className="content">
-        <div className="row">
-          <div className="col-12 text-right mb-4">step 2 of 3</div>
-        </div>
         <div className="checkout">
           <div className="row">
+            <div className="col-lg-7">
+              <p className="header-checkout">Ulasan Pemesanan</p>
+            </div>
+            <div className="col-lg-5">
+              <div className="content-checkout">
+                <img className="img-fluid" width="160px" src={selected.photo1} alt="" />
+                <div className="header">
+                  <h2>{selected.activity_name}</h2>
+                  <p>oleh <span className="font-blue">{selected.host_name}</span></p>
+                </div>
+                <div className="selected_date">
+                  <h6>Tanggal dan Waktu</h6>
+                  <p>{this.convertDate(dates.date, dates.date_to, selected.duration)}, {this.convertTime(dates.times[0].time_start, dates.times[0].time_end)}</p>
+                </div>
+                <div className="border"></div>
+                <div className="float-left">
+                  <h6>Jumlah</h6>
+                  <p>{quantity} orang</p>
+                </div>
+                <div className="float-right">
+                  <h6>Price</h6>
+                  <p>Rp {selected.price}</p>
+                </div>
+                <div className="clearfix"></div>
+                <div className="border"></div>
+                <h6 className="float-left">Total</h6>
+                <p className="float-right">Rp {selected.price * quantity}</p>
+                <div className="clearfix"></div>
+                <div className="text-right" style={{ marginTop: '47px' }}>
+                  <button className="btn btn-primary" onClick={() => this.checkOut(quantity, dates.id_activity_date, selected.id_activity)}>Pesan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="row">
             <div className="col-2">
               <img className="img-fluid mb-4" src={selected.photo1} alt=""/>
             </div>
@@ -75,8 +107,8 @@ class CheckOut extends Component {
           <div className="border"></div>
           <div className="row justify-content-end mt-4 mb-4">
             <div className="col-offset-7"></div>
-            {/* <div className="col-3 mb-4"><input type="text" className="form-control" placeholder="Have a Magic Coupon?"/></div>
-            <div className="col-4"><button className="btn btn-primary">Apply</button></div> */}
+            <div className="col-3 mb-4"><input type="text" className="form-control" placeholder="Have a Magic Coupon?"/></div>
+            <div className="col-4"><button className="btn btn-primary">Apply</button></div>
             <div className="col-3 pt-2">Total</div>
             <div className="col-2 pt-2">IDR {selected.price * quantity}</div>
           </div>
@@ -104,16 +136,16 @@ class CheckOut extends Component {
             <div className="col-4 col-lg-2">Total<br/>IDR {selected.price * quantity}</div>
           </div>
           <div className="border"></div>
-          {/* <div className="row mt-4 mb-4">
+          <div className="row mt-4 mb-4">
             <div className="col-12 col-lg-3 mb-4"><input type="text" className="form-control" placeholder="Have a Magic Coupon?"/></div>
             <div className="col-12 col-lg-4"><button className="btn btn-primary btn-block float-right">Apply</button></div>
           </div>
-          <div className="border"></div> */}
+          <div className="border"></div>
           <div className="row">
             <div className="col-12 text-right mt-4">
               <button className="btn btn-primary btn-block" onClick={() => this.checkOut(quantity, dates.id_activity_date, selected.id_activity)}>Place Order</button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     )

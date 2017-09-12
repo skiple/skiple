@@ -7,7 +7,7 @@ class EditProfile extends Component {
       <div className="content confirmation">
         <div className="row">
           <div className="col-12 col-lg-6">
-            <h2>Edit Profile</h2>
+            <h2 style={{ fontSize: '24px' }}>Edit Profile</h2>
             <form>
               <div className="form-group">
                 <label htmlFor="formNama">First Name</label>

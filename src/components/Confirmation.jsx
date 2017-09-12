@@ -32,9 +32,6 @@ class Confirmation extends Component {
     return (
       <div className="content confirmation">
         <div className="row">
-          <div className="col-12 text-right mb-4">step 3 of 3</div>
-        </div>
-        <div className="row">
           <div className="col-12 col-lg-6">
             <h2>Konfirmasi Pembayaran</h2>
             <form onSubmit={this.handleSubmit}>
