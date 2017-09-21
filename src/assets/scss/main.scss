@@ -384,8 +384,29 @@ input::-webkit-input-placeholder .form-control{
     margin-bottom: 30px;
     border-bottom: 1px solid $lightGrey;
   }
-  @media (max-width: 576px) {
+  .btn-res1{
+    display: block;
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+  .btn-res2 {
     display: none;
+    @media (max-width: 576px) {
+      display: block;
+    }
+  }
+  .img-res1{
+    display: block;
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+  .img-res2 {
+    display: none;
+    @media (max-width: 576px) {
+      display: block;
+    }
   }
 }
 

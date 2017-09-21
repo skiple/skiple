@@ -58,12 +58,13 @@ class CheckOut extends Component {
       <div className="content">
         <div className="checkout">
           <div className="row">
-            <div className="col-lg-7">
+            <div className="col-lg-7 mb-3">
               <p className="header-checkout">Ulasan Pemesanan</p>
             </div>
-            <div className="col-lg-5">
+            <div className="col-12 col-lg-5">
               <div className="content-checkout">
-                <img className="img-fluid" width="160px" src={selected.photo1} alt="" />
+                <img className="img-fluid img-res1" width="160px" src={selected.photo1} alt="" />
+                <img className="img-fluid img-res2" src={selected.photo1} alt="" />
                 <div className="header">
                   <h2>{selected.activity_name}</h2>
                   <p>oleh <span className="font-blue">{selected.host_name}</span></p>
@@ -87,13 +88,14 @@ class CheckOut extends Component {
                 <p className="float-right">Rp {selected.price * quantity}</p>
                 <div className="clearfix"></div>
                 <div className="text-right" style={{ marginTop: '47px' }}>
-                  <button className="btn btn-primary" onClick={() => this.checkOut(quantity, dates.id_activity_date, selected.id_activity)}>Pesan</button>
+                  <button className="btn btn-primary btn-res1" onClick={() => this.checkOut(quantity, dates.id_activity_date, selected.id_activity)}>Pesan</button>
+                  <button className="btn btn-primary btn-block btn-res2" onClick={() => this.checkOut(quantity, dates.id_activity_date, selected.id_activity)}>Pesan</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="checkout-res">
+        {/* <div className="checkout-res">
           <div className="row">
             <div className="col-12 col-lg-2">
               <img className="img-fluid mb-4" src={selected.photo1} alt="" />
@@ -120,7 +122,7 @@ class CheckOut extends Component {
               <button className="btn btn-primary btn-block" onClick={() => this.checkOut(quantity, dates.id_activity_date, selected.id_activity)}>Place Order</button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
