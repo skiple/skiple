@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { getProfile } from 'actions/User'
 
 class EditProfile extends Component {
+  componentDidMount () {
+    this.props.getProfile()
+  }
+
   render () {
+    const { dataUser } = this.props
+    console.log(dataUser)
     return (
       <div className="content confirmation">
         <div className="row">
@@ -36,4 +44,10 @@ class EditProfile extends Component {
   }
 }
 
-export default EditProfile
+const mapStateToProps = ({ user }) => {
+  const { dataUser } = user
+
+  return { dataUser }
+}
+
+export default connect(mapStateToProps, { getProfile })(EditProfile)

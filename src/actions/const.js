@@ -11,6 +11,7 @@ export const SELECTED_ACTIVITY = 'SELECTED_ACTIVITY'
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_UP = 'SIGN_UP'
 export const LOG_OUT = 'LOG_OUT'
+export const GET_PROFILE = 'GET_PROFILE'
 
 // TRANSACTION
 export const GET_ALL_TRANSACTION = 'GET_ALL_TRANSACTION'

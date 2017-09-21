@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-import { SIGN_IN, SIGN_UP, LOG_OUT } from './const'
+import { SIGN_IN, SIGN_UP, LOG_OUT, GET_PROFILE } from './const'
 
 export async function signIn (email, password) {
   const user = await axios.post('/signin',
@@ -40,5 +40,28 @@ export async function signOut () {
 
   return {
     type: LOG_OUT
+  }
+}
+
+export async function changePassword (data) {
+  await axios.post('/change_password', qs.stringify(data), {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+
+  return {}
+}
+
+export async function getProfile () {
+  const res = await axios.get('/get_profile', {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+
+  return {
+    type: GET_PROFILE,
+    payload: res
   }
 }
