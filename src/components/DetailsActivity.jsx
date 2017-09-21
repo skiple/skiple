@@ -259,10 +259,37 @@ class DetailsActivity extends Component {
               <small className="text-danger">{this.state.required}</small>
               <div className="slot-content">
                 <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col-6">
                     <p className="price">IDR {this.convertPrice()} <span>per orang</span></p>
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col-6 responsive-mobile">
+                    <div className="quantity float-left">
+                      <select className="form-control form-custom" onChange={this.handleChange}>
+                        <option>-- org</option>
+                        <option value="1">1 org</option>
+                        <option value="2">2 org</option>
+                        <option value="3">3 org</option>
+                        <option value="4">4 org</option>
+                        <option value="5">5 org</option>
+                        <option value="6">6 org</option>
+                        <option value="7">7 org</option>
+                        <option value="8">8 org</option>
+                        <option value="9">9 org</option>
+                        <option value="10">10 org</option>
+                        <option value="11">11 org</option>
+                        <option value="12">12 org</option>
+                        <option value="13">13 org</option>
+                        <option value="14">14 org</option>
+                        <option value="15">15 org</option>
+                        <option value="16">16 org</option>
+                        <option value="17">17 org</option>
+                        <option value="18">18 org</option>
+                        <option value="19">19 org</option>
+                        <option value="20">20 org</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-6 responsive">
                     <div className="quantity float-left">
                       <select className="form-control form-custom" onChange={this.handleChange}>
                         <option>-- org</option>
@@ -289,6 +316,14 @@ class DetailsActivity extends Component {
                       </select>
                     </div>
                     <button className="btn btn-primary float-right" onClick={this.checkOut}>Next</button>
+                    <small className={`over ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
+                    <small className={`over-res ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
+                    <div className="clearfix"></div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-12 responsive-mobile">
+                    <button className="btn btn-primary btn-block" onClick={this.checkOut}>Next</button>
                     <small className={`over ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
                     <small className={`over-res ${this.state.over ? 'text-danger' : ''}`}>{this.state.slot}</small>
                     <div className="clearfix"></div>
