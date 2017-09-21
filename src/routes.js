@@ -9,6 +9,7 @@ import CheckOutPage from 'container/CheckOutPage'
 import ConfirmationPage from 'container/ConfirmationPage'
 import EditProfilePage from 'container/EditProfilePage'
 import EditPasswordPage from 'container/EditPasswordPage'
+import ForgotPasswordPage from 'container/ForgotPasswordPage'
 
 const Routes = (props) => (
   <Router {...props}>
@@ -19,7 +20,8 @@ const Routes = (props) => (
       <Route path="/activity/:id" components={DetailsActivityPage}/>
       <Route path="/confirmation/:id" components={ConfirmationPage}/>
       <Route path="/editprofile" components={EditProfilePage}/>
-      <Route path="/editpassword" components={EditPasswordPage}/>
+      <Route path="/editpassword" components={EditPasswordPage} />
+      <Route path="/forgotpassword" components={ForgotPasswordPage} />
     </Route>
   </Router>
 )

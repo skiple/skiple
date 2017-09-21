@@ -1,7 +1,13 @@
 import axios from 'axios'
 import qs from 'qs'
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, GET_PROFILE } from './const'
+import {
+  SIGN_IN,
+  SIGN_UP,
+  LOG_OUT,
+  GET_PROFILE,
+  UPDATE_DATA_PROFILE
+} from './const'
 
 export async function signIn (email, password) {
   const user = await axios.post('/signin',
@@ -62,6 +68,31 @@ export async function getProfile () {
 
   return {
     type: GET_PROFILE,
-    payload: res
+    payload: res.data
   }
+}
+
+export async function editProfile (data) {
+  await axios.post('/edit_profile', qs.stringify(data), {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+}
+
+export function updateEditProfileData ({ prop, value }) {
+  return {
+    type: UPDATE_DATA_PROFILE,
+    payload: { prop, value }
+  }
+}
+
+export async function forgotPassword ({ email }) {
+  await axios.post('/forgot_password', qs.stringify({ email }), {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  })
+
+  return {}
 }

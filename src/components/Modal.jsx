@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { signIn, signUp } from 'actions/User'
@@ -122,7 +123,7 @@ class Modal extends Component {
                   </div>
                 </div>
                 <div className="float-right none-float">
-                  <p className="font-grey">Forgot the password?</p>
+                  <Link><p className="font-grey" style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/forgotpassword'}>Forgot Password</p></Link>
                 </div>
                 <div className="clearfix"></div>
                 <div className="row">
