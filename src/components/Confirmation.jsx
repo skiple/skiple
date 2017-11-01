@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { paymentConfirmation } from 'actions/Transaction'
+import { paymentConfirmation } from 'actions'
 import moment from 'moment'
 
 class Confirmation extends Component {

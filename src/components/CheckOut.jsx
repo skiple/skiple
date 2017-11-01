@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createNewTransaction } from 'actions/Transaction'
+import { createNewTransaction } from 'actions'
 
 const arrOfMount = []
 arrOfMount['01'] = 'Januari'
@@ -24,7 +24,7 @@ class CheckOut extends Component {
   }
 
   convertDate (startDate, endDate, duration) {
-    console.log(startDate, endDate, duration)
+    // console.log(startDate, endDate, duration)
     let startDateSplit = startDate.split(' ')
     let newStartDate = startDateSplit[0].split('-')
 
@@ -46,13 +46,11 @@ class CheckOut extends Component {
 
   checkOut (quantity, date, idActivity) {
     this.props.createNewTransaction(quantity, date, idActivity)
-      .then(() => {
-        window.location.href = '/transaction'
-      })
   }
 
   render () {
     const { selected, dates, quantity } = this.props
+    console.log(quantity)
 
     return (
       <div className="content">
@@ -128,12 +126,10 @@ class CheckOut extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    selected: state.activity.selected,
-    dates: state.activity.dates,
-    quantity: state.activity.quantity
-  }
+const mapStateToProps = ({ activity }) => {
+  const { selected, dates, quantity } = activity
+
+  return { selected, dates, quantity }
 }
 
 export default connect(mapStateToProps, { createNewTransaction })(CheckOut)

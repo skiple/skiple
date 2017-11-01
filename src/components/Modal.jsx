@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { signIn, signUp } from 'actions/User'
-import { selectedActivity } from 'actions/Activity'
+import { signIn, signInForOrder, signUp, selectedActivity } from 'actions'
 
 class Modal extends Component {
   static contextTypes = {
@@ -36,29 +35,34 @@ class Modal extends Component {
       else if (!this.password.value) this.setState({ passLogin: 'The password field is required' })
       else {
         this.props.signIn(this.email.value, this.password.value)
-          .then(() => {
-            window.location.reload()
-          }).catch((error) => {
-            if (error.response.status === 404) {
-              this.setState({ required: error.response.data.message })
-            }
-          })
+        // .then(() => {
+        //   window.location.reload()
+        // }).catch((error) => {
+        //   if (error.response.status === 404) {
+        //     this.setState({ required: error.response.data.message })
+        //   }
+        // })
       }
     } else {
       if (!this.email.value && !this.password.value) this.setState({ emailLogin: 'The email field is required', passLogin: 'The password field is required' })
       else if (!this.email.value) this.setState({ emailLogin: 'The email field is required' })
       else if (!this.password.value) this.setState({ passLogin: 'The password field is required' })
       else {
-        this.props.signIn(this.email.value, this.password.value)
-          .then(() => {
-            $('.myModalAuth').modal('hide')
-            this.props.selectedActivity(this.props.params.activity, this.props.params.date, this.props.params.quantity)
-            this.context.router.push('/checkout')
-          }).catch((error) => {
-            if (error.response.status === 404) {
-              this.setState({ required: error.response.data.message })
-            }
-          })
+        let data = {
+          activity: this.props.params.activity,
+          date: this.props.params.date,
+          quantity: this.props.params.quantity
+        }
+        this.props.signInForOrder(this.email.value, this.password.value, this.context.router, data)
+        // .then(() => {
+        //   $('.myModalAuth').modal('hide')
+        //   this.props.selectedActivity(this.props.params.activity, this.props.params.date, this.props.params.quantity)
+        //   this.context.router.push('/checkout')
+        // }).catch((error) => {
+        //   if (error.response.status === 404) {
+        //     this.setState({ required: error.response.data.message })
+        //   }
+        // })
       }
     }
   }
@@ -199,4 +203,4 @@ class Modal extends Component {
   }
 }
 
-export default connect(null, { signIn, signUp, selectedActivity })(Modal)
+export default connect(null, { signIn, signInForOrder, signUp, selectedActivity })(Modal)

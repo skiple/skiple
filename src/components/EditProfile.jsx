@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { getProfile, editProfile, updateEditProfileData } from 'actions/User'
+import { getProfile, editProfile, updateEditProfileData } from 'actions'
 
 class EditProfile extends Component {
   constructor (props) {
@@ -13,10 +13,10 @@ class EditProfile extends Component {
 
   onHandleChange (e) {
     if (e.target.id === 'firstName') {
-      this.props.updateEditProfileData({ prop: 'first_name', value: e.target.value })
+      this.props.updateEditProfileData({ prop: 'firstName', value: e.target.value })
     }
     if (e.target.id === 'lastName') {
-      this.props.updateEditProfileData({ prop: 'last_name', value: e.target.value })
+      this.props.updateEditProfileData({ prop: 'lastName', value: e.target.value })
     }
     if (e.target.id === 'phone') {
       this.props.updateEditProfileData({ prop: 'phone', value: e.target.value })
@@ -25,28 +25,25 @@ class EditProfile extends Component {
 
   onHandleSubmit (e) {
     e.preventDefault()
-    const { first_name, last_name, phone } = this.props
+    const { firstName, lastName, phone } = this.props
 
     let data = {
-      first_name,
-      last_name,
+      first_name: firstName,
+      last_name: lastName,
       phone
     }
 
     this.props.editProfile(data)
-      .then(window.location.reload())
-      .catch(err => console.log(err.response))
   }
 
   componentDidMount () {
     this.props.getProfile()
-      .then(res => console.log(res.payload.user))
   }
 
   render () {
     const {
-      first_name,
-      last_name,
+      firstName,
+      lastName,
       phone
     } = this.props
 
@@ -58,11 +55,11 @@ class EditProfile extends Component {
             <form onSubmit={this.onHandleSubmit}>
               <div className="form-group">
                 <label htmlFor="formNama">First Name</label>
-                <input type="text" className="form-control" id="firstName" value={first_name} onChange={this.onHandleChange} />
+                <input type="text" className="form-control" id="firstName" value={firstName} onChange={this.onHandleChange} />
               </div>
               <div className="form-group">
                 <label htmlFor="formNomorHp">Last Name</label>
-                <input type="text" className="form-control" id="lastName" value={last_name} onChange={this.onHandleChange} />
+                <input type="text" className="form-control" id="lastName" value={lastName} onChange={this.onHandleChange} />
               </div>
               <div className="form-group">
                 <label htmlFor="formJumlahTransfer">Phone</label>
@@ -84,9 +81,9 @@ class EditProfile extends Component {
 }
 
 const mapStateToProps = ({ user }) => {
-  const { first_name, last_name, phone } = user
+  const { firstName, lastName, phone } = user
 
-  return { first_name, last_name, phone }
+  return { firstName, lastName, phone }
 }
 
 export default connect(mapStateToProps, { getProfile, editProfile, updateEditProfileData })(EditProfile)

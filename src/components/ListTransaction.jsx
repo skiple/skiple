@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { getAllTransaction } from 'actions/Transaction'
+import { getAllTransaction } from 'actions'
 
 const arrOfMount = []
 arrOfMount['01'] = 'Januari'

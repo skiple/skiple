@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getActivity, selectedActivity } from 'actions/Activity'
+import { getActivity, selectedActivity, updateActivityData } from 'actions'
 
 import Modal from 'components/Modal'
 
@@ -43,7 +43,6 @@ class DetailsActivity extends Component {
     super(props)
 
     this.state = {
-      data: {},
       date: '',
       required: '',
       quantity: '',
@@ -63,13 +62,9 @@ class DetailsActivity extends Component {
 
   componentDidMount () {
     this.props.getActivity(this.props.params.id)
-      .then(() => {
-        this.setState({ data: this.props.details.activity })
-      })
   }
 
   componentWillUnmount () {
-    this.setState(this.state)
   }
 
   handleModal () {
@@ -77,25 +72,26 @@ class DetailsActivity extends Component {
   }
 
   handleChange (e) {
-    this.setState({ quantity: e.target.value })
+    this.props.updateActivityData({ prop: 'quantity', value: e.target.value })
   }
 
   changeInitialPhoto (e) {
     let img = this.img.src
     if (e.target.id === 'img1') {
-      this.setState({ mainPhoto: e.target.src })
-      this.setState({ secondPhoto: img })
+      this.props.updateActivityData({ prop: 'mainPhoto', value: e.target.src })
+      this.props.updateActivityData({ prop: 'secondPhoto', value: img })
     } else if (e.target.id === 'img2') {
-      this.setState({ mainPhoto: e.target.src })
-      this.setState({ thirdPhoto: img })
+      this.props.updateActivityData({ prop: 'mainPhoto', value: e.target.src })
+      this.props.updateActivityData({ prop: 'thirdPhoto', value: img })
     } else {
-      this.setState({ mainPhoto: e.target.src })
-      this.setState({ fourthPhoto: img })
+      this.props.updateActivityData({ prop: 'mainPhoto', value: e.target.src })
+      this.props.updateActivityData({ prop: 'fourthPhoto', value: img })
     }
   }
 
   convertPrice () {
-    let price = this.state.data.price
+    const { details } = this.props
+    let price = details.activity.price
     return Number(price).toLocaleString('de')
   }
 
@@ -135,48 +131,48 @@ class DetailsActivity extends Component {
 
   selectedDate (date) {
     $('#myModalTanggal').modal('hide')
-    this.setState({
-      date,
-      slot: `Slot maksimal ${date.max_participants} orang, sekarang tersisa ${date.participant_left} orang`
-    })
+    this.props.updateActivityData({ prop: 'date', value: date })
+    this.setState({ slot: `Slot maksimal ${date.max_participants} orang, sekarang tersisa ${date.participant_left} orang` })
   }
 
   checkOut () {
-    if (!this.state.date && !this.state.quantity) {
+    const { date, quantity, details } = this.props
+
+    if (!date && !quantity) {
       this.setState({ required: 'Pilih tanggal dan input quantity' })
-    } else if (!this.state.date) {
+    } else if (!date) {
       this.setState({ required: 'Pilih tanggal' })
-    } else if (!this.state.quantity) {
+    } else if (!quantity) {
       this.setState({ required: 'Input quantity' })
     } else {
       if (!localStorage.getItem('token')) {
-        if (this.state.quantity <= 0) {
+        if (quantity <= 0) {
           console.log('berhasil')
           this.setState({
             over: !this.state.over,
             slot: `Masukan quantity minimal 1`
           })
-        } else if (this.state.quantity > this.state.date.participant_left) {
+        } else if (quantity > date.participant_left) {
           this.setState({
             over: !this.state.over,
-            slot: `Melebihi kapasitas! slot yang tersedia hanya ${this.state.date.participant_left}`
+            slot: `Melebihi kapasitas! slot yang tersedia hanya ${date.participant_left}`
           })
         } else {
           $(findDOMNode(this.modal)).modal('show')
         }
       } else {
-        if (this.state.quantity <= 0) {
+        if (quantity <= 0) {
           this.setState({
             over: !this.state.over,
             slot: `Masukan quantity minimal 1`
           })
-        } else if (this.state.quantity > this.state.date.participant_left) {
+        } else if (quantity > date.participant_left) {
           this.setState({
             over: !this.state.over,
-            slot: `Melebihi kapasitas! slot yang tersedia hanya ${this.state.date.participant_left}`
+            slot: `Melebihi kapasitas! slot yang tersedia hanya ${date.participant_left}`
           })
         } else {
-          this.props.selectedActivity(this.props.details.activity, this.state.date, this.state.quantity)
+          this.props.selectedActivity(details.activity, date, quantity)
           this.context.router.push('/checkout')
         }
       }
@@ -205,56 +201,66 @@ class DetailsActivity extends Component {
   }
 
   render () {
-    if (!this.props.details.activity) { return (<div>loading...</div>) }
+    const {
+      details,
+      mainPhoto,
+      secondPhoto,
+      thirdPhoto,
+      fourthPhoto,
+      date,
+      quantity
+    } = this.props
+
+    if (!details.activity) { return (<div>loading...</div>) }
     return (
       <div>
         <div className="content activity-details">
           <div className="row">
             <div className="col-12 col-lg-6">
               <div className="image-content">
-                <img className="img-fluid" src={this.state.mainPhoto ? this.state.mainPhoto : this.state.data.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
+                <img className="img-fluid" src={mainPhoto || details.activity.photo1} style={{ 'marginBottom': '30px' }} alt="" ref={e => this.img = e} />
                 <div className="row">
                   <div className="col-4">
-                    <img id="img1" className="img-fluid hvr-grow" src={this.state.secondPhoto ? this.state.secondPhoto : this.state.data.photo2} alt="" onClick={this.changeInitialPhoto} />
+                    <img id="img1" className="img-fluid hvr-grow" src={secondPhoto || details.activity.photo2} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                   <div className="col-4">
-                    <img id="img2" className="img-fluid hvr-grow" src={this.state.thirdPhoto ? this.state.thirdPhoto : this.state.data.photo3} alt="" onClick={this.changeInitialPhoto} />
+                    <img id="img2" className="img-fluid hvr-grow" src={thirdPhoto || details.activity.photo3} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                   <div className="col-4">
-                    <img id="img3" className="img-fluid hvr-grow" src={this.state.fourthPhoto ? this.state.fourthPhoto : this.state.data.photo4} alt="" onClick={this.changeInitialPhoto} />
+                    <img id="img3" className="img-fluid hvr-grow" src={fourthPhoto || details.activity.photo4} alt="" onClick={this.changeInitialPhoto} />
                   </div>
                 </div>
               </div>
               <div className="body-content-left">
-                <p className="header-list-left">{this.state.data.host_name}</p>
-                <p className="font-grey">{this.state.data.host_profile}</p>
+                <p className="header-list-left">{details.activity.host_name}</p>
+                <p className="font-grey">{details.activity.host_profile}</p>
               </div>
             </div>
             <div className="col-lg-1"></div>
             <div className="col-12 col-lg-5">
               <div className="header-content">
-                <h3>{this.state.data.activity_name}</h3>
-                <p>oleh <span className="font-blue">{this.state.data.host_name}</span></p>
+                <h3>{details.activity.activity_name}</h3>
+                <p>oleh <span className="font-blue">{details.activity.host_name}</span></p>
               </div>
               <div className="select-date">
                 {/* <button className="btn btn-primary float-right btn-res-tog" onClick={this.handleModal}>{!this.state.date ? 'Tanggal' : this.convertDateButton(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button> */}
-                <button className="btn btn-primary btn-res" onClick={this.handleModal}>{!this.state.date ? 'Pilih Tanggal' : this.convertDate(this.state.date.date, this.state.date.date_to, this.state.data.duration)}</button>
+                <button className="btn btn-primary btn-res" onClick={this.handleModal}>{!date ? 'Pilih Tanggal' : this.convertDate(date.date, date.date_to, details.activity.duration)}</button>
               </div>
               <div className="body-content">
                 <p className="header-list">Detil Kegiatan</p>
-                <p className="font-grey">{this.state.data.description}</p>
+                <p className="font-grey">{details.activity.description}</p>
               </div>
               <div className="body-content">
                 <p className="header-list">Apa yang akan disediakan?</p>
-                <p className="font-grey">{this.state.data.provide}</p>
+                <p className="font-grey">{details.activity.provide}</p>
               </div>
               <div className="body-content">
                 <p className="header-list">Dimana lokasi kegiatan?</p>
-                <p className="font-grey">{this.state.data.location}</p>
+                <p className="font-grey">{details.activity.location}</p>
               </div>
               <div className="body-content">
                 <p className="header-list">Agenda</p>
-                <p className="font-grey">{this.state.data.itinerary}</p>
+                <p className="font-grey">{details.activity.itinerary}</p>
               </div>
               <small className="text-danger">{this.state.required}</small>
               <div className="slot-content">
@@ -345,10 +351,32 @@ class DetailsActivity extends Component {
             </div>
           </div>
         </div>
-        <Modal ref={e => this.modal = e} params={{ id: 2, activity: this.state.data, date: this.state.date, quantity: this.state.quantity }} />
+        <Modal ref={e => this.modal = e} params={{ id: 2, activity: details.activity, date, quantity }} />
       </div>
     )
   }
 }
 
-export default connect((state) => ({ details: state.activity.details }), { getActivity, selectedActivity })(DetailsActivity)
+const mapStateToProps = ({ activity }) => {
+  const {
+    details,
+    mainPhoto,
+    secondPhoto,
+    thirdPhoto,
+    fourthPhoto,
+    date,
+    quantity
+  } = activity
+
+  return {
+    details,
+    mainPhoto,
+    secondPhoto,
+    thirdPhoto,
+    fourthPhoto,
+    date,
+    quantity
+  }
+}
+
+export default connect(mapStateToProps, { getActivity, selectedActivity, updateActivityData })(DetailsActivity)

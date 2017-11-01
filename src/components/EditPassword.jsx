@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changePassword } from 'actions/User'
+import { changePassword } from 'actions'
 
 class EditPassword extends Component {
   constructor (props) {
@@ -18,7 +18,6 @@ class EditPassword extends Component {
     }
 
     this.props.changePassword(data)
-      .then(res => console.log(res))
   }
 
   render () {

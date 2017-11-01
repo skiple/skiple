@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { forgotPassword } from 'actions/User'
+import { forgotPassword } from 'actions'
 
 class ForgotPassword extends Component {
   constructor (props) {
@@ -12,7 +12,6 @@ class ForgotPassword extends Component {
   handleSubmit (e) {
     e.preventDefault()
     this.props.forgotPassword({ email: this.email.value })
-      .then(window.location.href = '/')
   }
 
   render () {

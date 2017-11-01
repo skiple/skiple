@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { findDOMNode } from 'react-dom'
-import { signOut } from 'actions/User'
-import { getAllTransaction } from 'actions/Transaction'
+import { signOut, getAllTransaction } from 'actions'
 
 import Modal from './Modal'
 
@@ -32,10 +31,6 @@ class Header extends Component {
 
   handleSignOut () {
     this.props.signOut()
-      .then(() => {
-        localStorage.clear()
-        window.location.href = '/'
-      })
   }
 
   getTotalTransaction () {

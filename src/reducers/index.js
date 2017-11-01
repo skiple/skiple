@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 
-import ActivityReducers from './reducers_activity'
-import UserReducers from './reducers_user'
-import TransactionReducers from './reducers_transaction'
+import ActivityReducers from './ActivityReducer'
+import UserReducers from './UserReducer'
+import TransactionReducers from './TransactionReducer'
 
 const rootReducer = combineReducers({
   activity: ActivityReducers,
