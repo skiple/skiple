@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://rp.rentuff.id/api'
+axios.defaults.baseURL = 'https://rp.rentuff.id/api'
 
 // ACTIVITY
 export const GET_ALL_ACTIVITIES = 'GET_ALL_ACTIVITIES'
@@ -17,3 +17,4 @@ export const UPDATE_DATA_PROFILE = 'UPDATE_DATA_PROFILE'
 // TRANSACTION
 export const GET_ALL_TRANSACTION = 'GET_ALL_TRANSACTION'
 export const PAYMENT_CONFIRMATION = 'PAYMENT_CONFIRMATION'
+export const GET_PAYMENT_METHOD = 'GET_PAYMENT_METHOD'

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { paymentConfirmation } from 'actions/Transaction'
+import { getPaymentMethod } from 'actions/Payment'
 import moment from 'moment'
 
 class Confirmation extends Component {
@@ -10,6 +11,10 @@ class Confirmation extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount () {
+    this.props.getPaymentMethod()
+  }
+
   handleSubmit (e) {
     e.preventDefault()
     let data = {
@@ -17,7 +22,7 @@ class Confirmation extends Component {
       from_bank: this.fromBank.value,
       phone: this.nomorHp.value,
       amount: this.amount.value,
-      bank: this.bank.value,
+      id_payment_method: this.id_payment_method.value,
       transfer_date: moment().format('YYYY-MM-DD'),
       id_transaction: this.props.params.id
     }
@@ -26,6 +31,17 @@ class Confirmation extends Component {
       .then(() => {
         window.location.href = '/transaction'
       })
+  }
+
+  renderOptions () {
+    const { payment } = this.props
+
+    if (!payment.payment_methods) return (<option></option>)
+    return payment.payment_methods.map((data) => {
+      return (
+        <option key={data.id_payment_method} value={data.id_payment_method}>{data.payment_method_name}</option>
+      )
+    })
   }
 
   render () {
@@ -53,9 +69,8 @@ class Confirmation extends Component {
               </div>
               <div className="form-group">
                 <label htmlFor="toBank">Transfer ke Bank</label>
-                <select className="form-control" id="toBank" ref={e => this.bank = e}>
-                  <option>Mandiri</option>
-                  <option>BCA</option>
+                <select className="form-control" id="toBank" ref={e => this.id_payment_method = e}>
+                  {this.renderOptions()}
                 </select>
               </div>
               <button type="submit" className="btn btn-primary float-right">Konfirmasi</button>
@@ -67,4 +82,4 @@ class Confirmation extends Component {
   }
 }
 
-export default connect(null, { paymentConfirmation })(Confirmation)
+export default connect((state) => ({ payment: state.payment.all }), { getPaymentMethod, paymentConfirmation })(Confirmation)
